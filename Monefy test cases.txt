@@ -1,0 +1,41 @@
+Task 1
+
+ Exploratory Testing Session of the Monefy app
+
+Charter 1: Basic Functionality Testing
+Objective: Adding, editing and deleting transactions
+Task Focus Areas: Transaction Input, Category selection, mode of payment, editing transaction and deleting transaction.
+Findings:
+Adding and editing transactions worked smoothly.
+Bug: Deleting a transaction occasionally caused the app to hang.
+Suggestion: Slide options to delete or edit the transaction (Right edit, Left delete).
+
+Charter 2: User Interface and Usability
+Objective: Assess user interface for intuitiveness and ease of use.
+Task Focus Areas: Navigation between screens, Responsiveness of touch inputs, Clarity of icons and labels, Accessibility features
+Findings:
+The interface is intuitive, but some icons are not self-explanatory.
+Suggestion: Include tooltips for unclear icons.
+
+Charter 3: Security, Privacy and Data protection
+Objective: Examine the app's security features and privacy settings.
+Task Focus Areas: Password protection, Data encryption, Privacy policy compliance
+Findings:
+Basic password protection is not available.
+Suggestion: Implement password protection with two-factor authentication, Robust creation of data backup (Daily, weekly, Monthly Etc.).
+
+
+Priority:
+
+Charter 1: Basic Functionality Testing - High Priority
+Reason: Core functionalities are critical for user satisfaction and retention.
+Charter 3: Security and Privacy - High Priority
+Reason: Ensuring user data security and privacy is paramount.
+Charter 2: User Interface and Usability - Low Priority
+Reason: Usability enhancements can be addressed after critical bugs are fixed.
+
+Risk Mitigation:
+Data Loss: Ensure robust data backup and restore features to prevent data loss.
+Security Vulnerabilities: Regular security audits and updates to mitigate potential breaches.
+User Experience: Address usability issues to enhance user satisfaction and app adoption.
+
