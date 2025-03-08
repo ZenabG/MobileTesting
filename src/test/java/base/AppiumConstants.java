@@ -12,7 +12,7 @@ public class AppiumConstants {
 	public static final String APP_ACTIVITY = "com.example.android.architecture.blueprints.todoapp.tasks.TasksActivity";
 	
 	//NodeJs executable path and AppiumJS path. This path is for windows machine, please update it if you are using mac.
-	public static final String NODE_JS_EXE_PATH = "C:/Program Files/nodejs/node.exe";
+	public static final String NODE_JS_EXE_PATH = "/usr/local/bin/node";
 	public static final String APPIUM_JS_PATH = System.getProperty("user.home")+"/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
 	
 	
