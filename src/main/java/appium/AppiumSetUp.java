@@ -1,25 +1,44 @@
 package appium;
 
-import io.appium.java_client.AndroidDriver;
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
+import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
+
+import java.io.File;
 import java.net.MalformedURLException;
+
+import io.appium.java_client.service.local.AppiumServiceBuilder;
+import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.openqa.selenium.remote.http.ClientConfig;
 import org.openqa.selenium.remote.service.DriverService;
 import java.net.URL;
 import java.time.Duration;
+import java.util.logging.Logger;
+
 import static io.appium.java_client.service.local.flags.GeneralServerFlag.BASEPATH;
 
 public class AppiumSetUp {
 	private static final ThreadLocal<AppiumDriver> driver = new ThreadLocal<> ();
-	private static final Logger log = LogManager.getLogger ("DriverManager.class");
+//	private static final Logger log = LoggerFactory.getLogger ("DriverManager.class");
 	private static AppiumDriverLocalService service;
 	private static final Dotenv dotenv = Dotenv.load();
 
 	public static void createAndroidDriver () {
 		startServer ();
-		driver.set (new AndroidDriver (service.getUrl (), setOptions ()));
+		UiAutomator2Options options = new UiAutomator2Options();
+
+		// Set Appium desired capabilities
+		options.setCapability(MobileCapabilityType.PLATFORM_NAME, dotenv.get("PLATFORM_NAME"));
+		options.setCapability(MobileCapabilityType.PLATFORM_VERSION, dotenv.get("PLATFORM_VERSION"));
+		options.setCapability(MobileCapabilityType.DEVICE_NAME, dotenv.get("DEVICE_NAME"));
+		options.setCapability("appPackage", AppiumConstants.APP_PACKAGE);
+		options.setCapability("appActivity", AppiumConstants.APP_ACTIVITY);
+		options.setCapability("noReset", "false");
+
+		driver = new AndroidDriver(service.getUrl(), options);
 		setupDriverTimeouts();
 	}
 
@@ -36,38 +55,18 @@ public class AppiumSetUp {
 
 	}
 
-private void UiAutomator2Options setOptions () {
-		// Set UiAutomator2 options
-		return new UiAutomator2Options()
-				.setPlatformName(dotenv.get("PLATFORM_NAME"))
-				.setDeviceName(dotenv.get("DEVICE_NAME"))
-				.setAppPackage(AppiumConstants.APP_PACKAGE)
-				.setAppActivity(AppiumConstants.APP_ACTIVITY) // Change this
-				.setNoReset(false);
-
-	}
-
-	public static <D extends AppiumDriver> D getDriver () {
-		return (D) DriverManager.DRIVER.get ();
-	}
-
-	private static <D extends AppiumDriver> void setDriver (final D driver) {
-		DriverManager.DRIVER.set (driver);
-	}
-
 	private static void setupDriverTimeouts () {
-		getDriver ().manage ()
+		driver.get().manage ()
 				.timeouts ()
 				.implicitlyWait (Duration.ofSeconds (30));
 	}
 
 	protected void killAppiumServer() {
-		if (null != driver.get ()) {
+		if (null != driver.get()) {
 			log.info ("Closing the driver...");
-			getDriver().quit ();
+			driver.get().quit ();
 			driver.remove ();
 			service.stop();
 		}
 	}
-
 }
