@@ -14,7 +14,7 @@ jobs:
 
     services:
       docker:
-        image: budtmo/docker-android-x86-11.0
+        image: budtmo/docker-android:emulator_9.0
         options: --privileged
         ports:
           - 6080:6080
