@@ -16,6 +16,8 @@ public class HomePage {
     @FindBy(id = "com.monefy.app.lite:id/balance_container")
     private WebElement homeBalanceButton;
 
+    @FindBy(xpath = " //android.widget.TextView[@resource-id=\"com.monefy.app.lite:id/income_amount_text\"]")
+    private WebElement homeDisplayWheelIncomeIcon;
 
     public HomePage(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -31,5 +33,9 @@ public class HomePage {
 
     public void clickBalanceButton() {
         homeBalanceButton.click();
+    }
+
+    public String getDisplayWheelIncomeIconText() {
+        return homeDisplayWheelIncomeIcon.getText();
     }
 }

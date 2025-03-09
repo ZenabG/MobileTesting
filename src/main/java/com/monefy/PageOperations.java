@@ -5,6 +5,7 @@ import com.monefy.pages.HomePage;
 import com.monefy.pages.OffersPage;
 import com.monefy.pages.TransactionEntryPage;
 import io.appium.java_client.android.AndroidDriver;
+import org.openqa.selenium.WebElement;
 
 public class PageOperations {
 
@@ -42,5 +43,7 @@ public class PageOperations {
         chooseCategoryPage.clickCarsCategory();
     }
 
-
+    public String getIncomeBalance() {
+        return homePage.getDisplayWheelIncomeIconText();
+    }
 }
