@@ -33,12 +33,12 @@ The project follows **Page object model** mechanism with **Page Factory**. **Tes
 
 ## How to run tests locally
 ### Pre-requisite :
-  * Node JS installed and set in  *Path* environment variable (Version 16.13.0 was used when this project was tested)
+  * Node JS installed and set in  *Path* environment variable (Version 23.9.0 was used when this project was tested)
   * Appium downloaded using either npm (`npm install -g appium`) or appium desktop (https://github.com/appium/appium-desktop/releases) (Version 1.22.1 was used when this project was tested)
   * Android SDK installed and ANDROID_HOME set in environment variable (windows) or bash profile (mac)
   * An IDE (Eclipse or intelliJ)
-  * Java (JDK and JRE) installed and JAVA_HOME set in environment variable (windows) or bash profile (mac).
-  * Maven installed and M2_HOME set in environment variable (windows) or bash profile (mac).
+  * Java 17 (JDK and JRE) installed and JAVA_HOME set in environment variable (windows) or bash profile (mac).
+  * Maven 3.9.9 installed and M2_HOME set in environment variable (windows) or bash profile (mac).
   * Git installed 
     
 ### Steps to download the project in IDE: 

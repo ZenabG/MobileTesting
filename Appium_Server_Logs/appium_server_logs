@@ -1,25 +1,25 @@
-2025-03-08 11:37:12:250 [Appium] Welcome to Appium v2.16.2
-2025-03-08 11:37:12:253 [Appium] Non-default server args:
-2025-03-08 11:37:12:253 [Appium] { port: 29487, sessionOverride: true }
-2025-03-08 11:37:12:253 [Appium] Default capabilities, which will be added to each request unless overridden by desired capabilities:
-2025-03-08 11:37:12:254 [Appium] { appActivity: 'com.example.android.architecture.blueprints.todoapp.tasks.TasksActivity',
-  appPackage: 'com.example.android.architecture.blueprints.master.mock',
+2025-03-08 19:54:45:773 [Appium] Welcome to Appium v2.16.2
+2025-03-08 19:54:45:775 [Appium] Non-default server args:
+2025-03-08 19:54:45:776 [Appium] { port: 4058, sessionOverride: true }
+2025-03-08 19:54:45:776 [Appium] Default capabilities, which will be added to each request unless overridden by desired capabilities:
+2025-03-08 19:54:45:777 [Appium] { appActivity: 'com.monefy.activities.main.MainActivity_ t4575',
+  appPackage: 'com.monefy.app.lite',
   deviceName: 'OnePlus',
   noReset: 'false',
   platformName: 'ANDROID',
   platformVersion: '10.0.1' }
-2025-03-08 11:37:12:254 [Appium] The autodetected Appium home path: /Users/zenabgorach/.appium
-2025-03-08 11:37:12:276 [Appium] Appium REST http interface listener started on http://0.0.0.0:29487
-2025-03-08 11:37:12:277 [Appium] You can provide the following URLs in your client code to connect to this server:
-	http://127.0.0.1:29487/ (only accessible from the same host)
-	http://192.168.201.136:29487/
-2025-03-08 11:37:12:277 [Appium] No drivers have been installed in /Users/zenabgorach/.appium. Use the "appium driver" command to install the one(s) you want to use.
-2025-03-08 11:37:12:278 [Appium] No plugins have been installed. Use the "appium plugin" command to install the one(s) you want to use.
-2025-03-08 11:37:12:492 [HTTP] --> GET /status {}
-2025-03-08 11:37:12:494 [AppiumDriver@d9e2] Calling AppiumDriver.getStatus() with args: []
-2025-03-08 11:37:12:496 [AppiumDriver@d9e2] Responding to client with driver.getStatus() result: {"ready":true,"message":"The server is ready to accept new connections","build":{"version":"2.16.2"}}
-2025-03-08 11:37:12:502 [HTTP] <-- GET /status 200 7 ms - 111 
-2025-03-08 11:37:12:505 [HTTP] --> GET /status {}
-2025-03-08 11:37:12:505 [AppiumDriver@d9e2] Calling AppiumDriver.getStatus() with args: []
-2025-03-08 11:37:12:505 [AppiumDriver@d9e2] Responding to client with driver.getStatus() result: {"ready":true,"message":"The server is ready to accept new connections","build":{"version":"2.16.2"}}
-2025-03-08 11:37:12:509 [HTTP] <-- GET /status 200 1 ms - 111 
+2025-03-08 19:54:45:777 [Appium] The autodetected Appium home path: /Users/zenabgorach/.appium
+2025-03-08 19:54:45:794 [Appium] Appium REST http interface listener started on http://0.0.0.0:4058
+2025-03-08 19:54:45:795 [Appium] You can provide the following URLs in your client code to connect to this server:
+	http://127.0.0.1:4058/ (only accessible from the same host)
+	http://192.168.201.136:4058/
+2025-03-08 19:54:45:795 [Appium] No drivers have been installed in /Users/zenabgorach/.appium. Use the "appium driver" command to install the one(s) you want to use.
+2025-03-08 19:54:45:796 [Appium] No plugins have been installed. Use the "appium plugin" command to install the one(s) you want to use.
+2025-03-08 19:54:45:852 [HTTP] --> GET /status {}
+2025-03-08 19:54:45:853 [AppiumDriver@fb8a] Calling AppiumDriver.getStatus() with args: []
+2025-03-08 19:54:45:855 [AppiumDriver@fb8a] Responding to client with driver.getStatus() result: {"ready":true,"message":"The server is ready to accept new connections","build":{"version":"2.16.2"}}
+2025-03-08 19:54:45:859 [HTTP] <-- GET /status 200 5 ms - 111 
+2025-03-08 19:54:45:863 [HTTP] --> GET /status {}
+2025-03-08 19:54:45:864 [AppiumDriver@fb8a] Calling AppiumDriver.getStatus() with args: []
+2025-03-08 19:54:45:864 [AppiumDriver@fb8a] Responding to client with driver.getStatus() result: {"ready":true,"message":"The server is ready to accept new connections","build":{"version":"2.16.2"}}
+2025-03-08 19:54:45:865 [HTTP] <-- GET /status 200 1 ms - 111 
