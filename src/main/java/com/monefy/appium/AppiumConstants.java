@@ -1,4 +1,4 @@
-package appium;
+package com.monefy.appium;
 
 public class AppiumConstants {
 

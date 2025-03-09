@@ -1,33 +1,29 @@
-package appium;
+package com.monefy.appium;
 
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 
 import java.io.File;
-import java.net.MalformedURLException;
 
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import io.github.cdimascio.dotenv.Dotenv;
-import org.openqa.selenium.remote.http.ClientConfig;
-import org.openqa.selenium.remote.service.DriverService;
-import java.net.URL;
+
 import java.time.Duration;
 import java.util.logging.Logger;
 
 import static io.appium.java_client.service.local.flags.GeneralServerFlag.BASEPATH;
 
 public class AppiumSetUp {
-	private static final ThreadLocal<AppiumDriver> driver = new ThreadLocal<> ();
-//	private static final Logger log = LoggerFactory.getLogger ("DriverManager.class");
+	protected static AndroidDriver driver;
+	protected Logger log;
 	private static AppiumDriverLocalService service;
 	private static final Dotenv dotenv = Dotenv.load();
 
 	public static void createAndroidDriver () {
-		startServer ();
+		startServer();
 		UiAutomator2Options options = new UiAutomator2Options();
 
 		// Set Appium desired capabilities
@@ -56,16 +52,14 @@ public class AppiumSetUp {
 	}
 
 	private static void setupDriverTimeouts () {
-		driver.get().manage ()
+		driver.manage ()
 				.timeouts ()
 				.implicitlyWait (Duration.ofSeconds (30));
 	}
 
 	protected void killAppiumServer() {
-		if (null != driver.get()) {
-			log.info ("Closing the driver...");
-			driver.get().quit ();
-			driver.remove ();
+		if (driver != null) {
+			driver.quit ();
 			service.stop();
 		}
 	}
