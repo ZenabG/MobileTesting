@@ -1,25 +1,31 @@
-2025-03-08 19:54:45:773 [Appium] Welcome to Appium v2.16.2
-2025-03-08 19:54:45:775 [Appium] Non-default server args:
-2025-03-08 19:54:45:776 [Appium] { port: 4058, sessionOverride: true }
-2025-03-08 19:54:45:776 [Appium] Default capabilities, which will be added to each request unless overridden by desired capabilities:
-2025-03-08 19:54:45:777 [Appium] { appActivity: 'com.monefy.activities.main.MainActivity_ t4575',
+2025-03-09 07:28:50:411 [Appium] Welcome to Appium v2.16.2
+2025-03-09 07:28:50:416 [Appium] Non-default server args:
+2025-03-09 07:28:50:416 [Appium] { port: 22146, sessionOverride: true }
+2025-03-09 07:28:50:417 [Appium] Default capabilities, which will be added to each request unless overridden by desired capabilities:
+2025-03-09 07:28:50:417 [Appium] { appActivity: 'com.monefy.activities.main.MainActivity_t4575',
   appPackage: 'com.monefy.app.lite',
   deviceName: 'OnePlus',
   noReset: 'false',
   platformName: 'ANDROID',
-  platformVersion: '10.0.1' }
-2025-03-08 19:54:45:777 [Appium] The autodetected Appium home path: /Users/zenabgorach/.appium
-2025-03-08 19:54:45:794 [Appium] Appium REST http interface listener started on http://0.0.0.0:4058
-2025-03-08 19:54:45:795 [Appium] You can provide the following URLs in your client code to connect to this server:
-	http://127.0.0.1:4058/ (only accessible from the same host)
-	http://192.168.201.136:4058/
-2025-03-08 19:54:45:795 [Appium] No drivers have been installed in /Users/zenabgorach/.appium. Use the "appium driver" command to install the one(s) you want to use.
-2025-03-08 19:54:45:796 [Appium] No plugins have been installed. Use the "appium plugin" command to install the one(s) you want to use.
-2025-03-08 19:54:45:852 [HTTP] --> GET /status {}
-2025-03-08 19:54:45:853 [AppiumDriver@fb8a] Calling AppiumDriver.getStatus() with args: []
-2025-03-08 19:54:45:855 [AppiumDriver@fb8a] Responding to client with driver.getStatus() result: {"ready":true,"message":"The server is ready to accept new connections","build":{"version":"2.16.2"}}
-2025-03-08 19:54:45:859 [HTTP] <-- GET /status 200 5 ms - 111 
-2025-03-08 19:54:45:863 [HTTP] --> GET /status {}
-2025-03-08 19:54:45:864 [AppiumDriver@fb8a] Calling AppiumDriver.getStatus() with args: []
-2025-03-08 19:54:45:864 [AppiumDriver@fb8a] Responding to client with driver.getStatus() result: {"ready":true,"message":"The server is ready to accept new connections","build":{"version":"2.16.2"}}
-2025-03-08 19:54:45:865 [HTTP] <-- GET /status 200 1 ms - 111 
+  platformVersion: '14' }
+2025-03-09 07:28:50:417 [Appium] The autodetected Appium home path: /Users/zenabgorach/.appium
+2025-03-09 07:28:50:418 [Appium] Attempting to load driver uiautomator2...
+2025-03-09 07:28:50:420 [Appium] Requiring driver at /Users/zenabgorach/.appium/node_modules/appium-uiautomator2-driver/build/index.js
+2025-03-09 07:28:50:871 [Appium] AndroidUiautomator2Driver has been successfully loaded in 0.453s
+2025-03-09 07:28:50:885 [Appium] Appium REST http interface listener started on http://0.0.0.0:22146
+2025-03-09 07:28:50:886 [Appium] You can provide the following URLs in your client code to connect to this server:
+	http://127.0.0.1:22146/ (only accessible from the same host)
+	http://192.168.201.136:22146/
+2025-03-09 07:28:50:886 [Appium] Available drivers:
+2025-03-09 07:28:50:887 [Appium]   - uiautomator2@4.1.0 (automationName 'UiAutomator2')
+2025-03-09 07:28:50:887 [Appium] Available plugins:
+2025-03-09 07:28:50:887 [Appium]   - element-wait@3.0.2
+2025-03-09 07:28:50:887 [Appium] No plugins activated. Use the --use-plugins flag with names of plugins to activate
+2025-03-09 07:28:50:940 [HTTP] --> GET /status {}
+2025-03-09 07:28:50:941 [AppiumDriver@b32b] Calling AppiumDriver.getStatus() with args: []
+2025-03-09 07:28:50:942 [AppiumDriver@b32b] Responding to client with driver.getStatus() result: {"ready":true,"message":"The server is ready to accept new connections","build":{"version":"2.16.2"}}
+2025-03-09 07:28:50:946 [HTTP] <-- GET /status 200 5 ms - 111 
+2025-03-09 07:28:50:950 [HTTP] --> GET /status {}
+2025-03-09 07:28:50:950 [AppiumDriver@b32b] Calling AppiumDriver.getStatus() with args: []
+2025-03-09 07:28:50:950 [AppiumDriver@b32b] Responding to client with driver.getStatus() result: {"ready":true,"message":"The server is ready to accept new connections","build":{"version":"2.16.2"}}
+2025-03-09 07:28:50:952 [HTTP] <-- GET /status 200 1 ms - 111 

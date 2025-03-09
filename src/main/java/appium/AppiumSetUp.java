@@ -3,15 +3,12 @@ package appium;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.time.Duration;
 import io.github.cdimascio.dotenv.Dotenv;
 
-public class BaseTest {
+public class AppiumSetUp {
 	protected AppiumDriver driver;
-	protected WebDriverWait wait;
 	protected AppiumDriverLocalService service;
 
 	private static final Dotenv dotenv = Dotenv.load();
@@ -34,10 +31,9 @@ public class BaseTest {
 
 		// Set implicit wait
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 	}
 
-	protected void tearDown() {
+	protected void killAppiumServer() {
 		if (driver != null) {
 			driver.quit();
 		}
