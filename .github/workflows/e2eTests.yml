@@ -1,0 +1,45 @@
+name: Android E2E Tests
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      docker:
+        image: budtmo/docker-android-x86-11.0
+        options: --privileged
+        ports:
+          - 6080:6080
+          - 4723:4723
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+
+      - name: Wait for Android emulator to start
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y adb
+          adb wait-for-device
+          adb shell input keyevent 82
+
+      - name: Start Appium server
+        run: |
+          npm install -g appium
+          appium &
+
+      - name: Run tests
+        run: mvn clean test
