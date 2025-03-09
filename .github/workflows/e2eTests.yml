@@ -1,6 +1,7 @@
 name: Android E2E Tests
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
@@ -23,13 +24,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
-      - name: Wait for Android emulator to start
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y adb
-          adb wait-for-device
-          adb shell input keyevent 82
 
       - name: Start Appium server
         run: |
