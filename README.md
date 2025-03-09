@@ -1,4 +1,4 @@
-# ZooplusMobile
+# Monefy mobile automation project
 
 ## Overview
 
@@ -8,23 +8,28 @@ The project follows **Page object model** mechanism with **Page Factory**. **Tes
 
 ## Project hierarchy
 
-* **src/main/java** : Consists of 1 package - 
+* **src/main/java** : Consists of 2 packages -
 
-   1. **pages :** It consists of 4 java classes defined below
-   
+    1. **base :** It has 2 java classes defined below
+        * AppiumConstants : Java constants class with app package name, app activity name
+        * AppiumSetUp : Appium setup to set desired capabilities, start the appium server programmatically and stop the server when test is completed
+
+    2. **pages :** It consists of 4 java classes defined below
+
         * AddTaskPage : Mobile locators and page methods for adding a new task page.
         * MenuPage : Mobile locators and page methods for hamburger menu page
         * StatisticsPage : Mobile locators and page methods for statistics of active and completed tasks page.
         * TaskHomePage : Mobile locators and page methods for home page of the TODO app
 
-* **src/test/java** : Consists of 2 packages - 
+* **src/test/java** : Consists of 1 package -
 
-   1. **base :** It has 2 java classes defined below
-        * AppiumConstants : Java constants class with appium capabilities (Modify this class to run the tests in your system using your favorite android mobile!)
-        * AppiumSetUp : Appium setup to set desired capabilities, start the appium server programmatically and stop the server when test is completed
-        
-   2. **functionalTests :** It consists of TestNG class with the TODO app UI test.
+    1. **e2eTests :** It consists of TestNG class with the TODO app UI test.
 
+        * TestTaskList : TestNG class with 3 test methods to test the functionality of the TODO app. 
+            * testAddTask : Test to add a new task in the TODO app
+            * testCompleteTask : Test to complete a task in the TODO app
+            * testDeleteTask : Test to delete a task in the TODO app
+          
 * **Appium_server_logs :** This folder has the appium server logs file generated after each test run
 
 ## Test reports 
@@ -33,12 +38,12 @@ The project follows **Page object model** mechanism with **Page Factory**. **Tes
 
 ## How to run tests locally
 ### Pre-requisite :
-  * Node JS installed and set in  *Path* environment variable (Version 23.9.0 was used when this project was tested)
-  * Appium downloaded using either npm (`npm install -g appium`) or appium desktop (https://github.com/appium/appium-desktop/releases) (Version 1.22.1 was used when this project was tested)
+  * Node JS installed and set in *Path* environment variable (Version 23.9.0 was used with this project)
+  * Appium installed using npm (`npm install -g appium`) (Version 1.22.1 was used with this project)
   * Android SDK installed and ANDROID_HOME set in environment variable (windows) or bash profile (mac)
   * An IDE (Eclipse or intelliJ)
-  * Java 17 (JDK and JRE) installed and JAVA_HOME set in environment variable (windows) or bash profile (mac).
-  * Maven 3.9.9 installed and M2_HOME set in environment variable (windows) or bash profile (mac).
+  * Java 17 installed and JAVA_HOME set in environment variable 
+  * Maven 3.9.9 installed and MAVEN_HOME set in environment variable 
   * Git installed 
     
 ### Steps to download the project in IDE: 
@@ -49,7 +54,7 @@ The project follows **Page object model** mechanism with **Page Factory**. **Tes
 ### Steps to run the tests using TestNG:
    1. Verify if the project is visible in project panel.
    2. Add TestNG to the IDE. If the project is in eclipse, go to Help > Eclipse Marketplace > enter TestNG in search. 
-   3. Go to src/test/java/functionalTests/TestTaskList.java 
+   3. Go to src/test/java/e2eTests/TestTaskList.java 
    4. Right click and run as TestNG test. (Appium server is started programmatically through the java code)
    5. After test run the reports are generated in folder *test-output*
 
@@ -57,6 +62,20 @@ The project follows **Page object model** mechanism with **Page Factory**. **Tes
    1. Right click on the project, Run as > maven clean
    2. After step 1 is successful, right click on the project, Run as > maven test (Appium server is started programmatically through the java code)
    3. After test run the reports are generated on the path target > surefire-reports > emailable-report.html 
+
+### Setting up environment variables
+To manage appium desired capabilities and environment variables, create a `.env` file in the root directory of the project. You can use the `.env.template` file as a reference. Copy the `.env.template` file to `.env` and fill in the actual values.
+
+#### Example of `.env.template`:
+```dotenv
+# .env.template
+
+PLATFORM_NAME=your_platform_name
+PLATFORM_VERSION=your_platform_version
+DEVICE_NAME=your_device_name
+NODE_JS_EXE_PATH=your_node_js_exe_path
+APPIUM_JS_PATH=your_appium_js_path
+```
 
 ## How to run tests using CI/CD
   1. Download and install Jenkins war file from https://www.jenkins.io/

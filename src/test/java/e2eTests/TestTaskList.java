@@ -1,4 +1,4 @@
-package functionalTests;
+package e2eTests;
 
 import static org.testng.Assert.assertTrue;
 
@@ -10,7 +10,7 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import base.AppiumSetUp;
+import appium.AppiumSetUp;
 import pages.AddTaskPage;
 import pages.MenuPage;
 import pages.StatisticsPage;

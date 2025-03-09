@@ -1,4 +1,4 @@
-package base;
+package appium;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -15,6 +15,7 @@ import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class AppiumSetUp {
 
@@ -22,23 +23,24 @@ public class AppiumSetUp {
 	protected WebDriverWait wait;
 	private AppiumServiceBuilder builder;
 	private AppiumDriverLocalService service;
+	private static final Dotenv dotenv = Dotenv.load();
 
 	protected void initialiseAppium() throws MalformedURLException {
 
 		DesiredCapabilities cap = new DesiredCapabilities();
 
 		// Set Appium desired capabilities
-		cap.setCapability(MobileCapabilityType.PLATFORM_NAME, AppiumConstants.PLATFORM_NAME);
-		cap.setCapability(MobileCapabilityType.PLATFORM_VERSION, AppiumConstants.PLATFORM_VERSION);
-		cap.setCapability(MobileCapabilityType.DEVICE_NAME, AppiumConstants.DEVICE_NAME);
+		cap.setCapability(MobileCapabilityType.PLATFORM_NAME, dotenv.get("PLATFORM_NAME"));
+		cap.setCapability(MobileCapabilityType.PLATFORM_VERSION, dotenv.get("PLATFORM_VERSION"));
+		cap.setCapability(MobileCapabilityType.DEVICE_NAME, dotenv.get("DEVICE_NAME"));
 		cap.setCapability("appPackage", AppiumConstants.APP_PACKAGE);
 		cap.setCapability("appActivity", AppiumConstants.APP_ACTIVITY);
 		cap.setCapability("noReset", "false");
 
 		// Define AppiumServiceBuilder with Appium IP, port, and paths
 		builder = new AppiumServiceBuilder();
-		builder.usingDriverExecutable(new File(AppiumConstants.NODE_JS_EXE_PATH));
-		builder.withAppiumJS(new File(AppiumConstants.APPIUM_JS_PATH));
+		builder.usingDriverExecutable(new File(dotenv.get("NODE_JS_EXE_PATH")));
+		builder.withAppiumJS(new File(dotenv.get("APPIUM_JS_PATH")));
 		builder.withIPAddress("0.0.0.0");
 		builder.usingAnyFreePort();
 		builder.withCapabilities(cap);
