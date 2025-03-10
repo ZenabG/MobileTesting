@@ -13,28 +13,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    env:
-      PLATFORM_NAME: android
-      PLATFORM_VERSION: 9.0
-      DEVICE_NAME: any
-      EMULATOR_PORT: 5554
-      APPIUM_PORT: 4723
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install Android SDK and ADB
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y adb
-          adb version  # Verify ADB installation
-
       - name: Start Android Emulator in Docker
         run: |
-          docker run --privileged -d --name android-emulator \
-          -p 5554:5554 -p 5555:5555 -p 4723:4723 \
-          budtmo/docker-android:emulator_9.0
+          docker run -d -p 6080:6080 -e EMULATOR_DEVICE="Samsung Galaxy S10" -e WEB_VNC=true --device /dev/kvm --name android-container budtmo/docker-android:emulator_11.0
 
       - name: Wait for Emulator to Boot
         run: |
