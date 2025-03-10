@@ -12,11 +12,12 @@ import com.monefy.PageOperations;
 
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class TestTransaction extends AppiumSetUp {
 
     private PageOperations pageOperations;
-    private final WebDriverWait wait;
+    private WebDriverWait wait;
 
     @BeforeSuite
     public void startAppiumServer() throws MalformedURLException {
