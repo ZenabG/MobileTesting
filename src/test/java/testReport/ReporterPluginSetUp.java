@@ -25,7 +25,7 @@ public class ReporterPluginSetUp {
                 os.write(input, 0, input.length);
             }
             int responseCode = connection.getResponseCode();
-            System.out.println("Response Code: " + responseCode);
+            System.out.println("Set Info Response Code: " + responseCode);
         } catch (Exception e) {
             System.out.println("Failed to set Test info");
         }
