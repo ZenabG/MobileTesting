@@ -7,6 +7,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.concurrent.TimeoutException;
+
 public class HomePage {
 
     private final WebDriverWait wait;
@@ -31,8 +33,15 @@ public class HomePage {
     }
 
     public void clickGetStartedButton() {
-//        this.wait.until(ExpectedConditions.(getStartedButton)).click();
-        getStartedButton.click();
+        try {
+            WebElement button = this.wait.until(ExpectedConditions.visibilityOf(getStartedButton));
+            if (button != null) {
+                button.click();
+            }
+        } catch (TimeoutException e) {
+            // Handle the case where the button is not present
+            System.out.println("Get Started button is not present.");
+        }
     }
 
     public void clickIncomeButton() {
