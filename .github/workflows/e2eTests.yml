@@ -22,7 +22,16 @@ jobs:
           docker run -d -p 6080:6080 -e EMULATOR_DEVICE="Samsung Galaxy S10" -e WEB_VNC=true --device /dev/kvm --name android-container budtmo/docker-android:emulator_11.0
 
       - name: Verify Emulator is Running
-        run: docker exec android-container cat device_status
+        run: |
+          for i in {1..30}; do
+            if docker exec android-container cat device_status 2>/dev/null; then
+              echo "Emulator is ready!"
+              exit 0
+            fi
+            echo "Waiting for emulator to be ready..."
+            sleep 5
+          done
+          echo "Emulator did not start in time" && exit 1
 
       - name: Start Appium Server in Docker
         run: |
@@ -41,4 +50,4 @@ jobs:
 
       - name: Force Stop Emulator if Stuck
         if: always()
-        run: docker rm -f android-emulator || true
+        run: docker rm -f android-container || true
