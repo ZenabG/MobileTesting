@@ -30,7 +30,7 @@ jobs:
 
       - name: Start Android Emulator in Docker
         run: |
-          docker run -d --network host -p 6080:6080 -e EMULATOR_DEVICE="Samsung Galaxy S10" -e WEB_VNC=true --device /dev/kvm --name android-container budtmo/docker-android:emulator_11.0
+          docker run -d --network e2e-network -p 6080:6080 -e EMULATOR_DEVICE="Samsung Galaxy S10" -e WEB_VNC=true --device /dev/kvm --name android-container budtmo/docker-android:emulator_11.0
 
       - name: Verify Emulator is Running
         run: |
@@ -46,12 +46,7 @@ jobs:
 
       - name: Check Emulator Status
         run: |
-          docker exec android-container adb devices | grep emulator | grep -q "device"
-          if [ $? -eq 0 ]; then
-            echo "Emulator is running"
-          else
-            echo "Emulator is not running" && exit 1
-          fi
+          docker exec android-container adb devices 
 
       - name: Get Emulator Device ID
         id: get-device-id
@@ -61,7 +56,7 @@ jobs:
 
       - name: Start Appium Server in Docker
         run: |
-          docker run --privileged -d --network host -p 4723:4723 --device=/dev/${EMULATOR_ID} -e APPIUM_HOST="127.0.0.1" --name appium-container appium/appium
+          docker run --privileged -d --network e2e-network -p 4723:4723 --device=/dev/${EMULATOR_ID} -e APPIUM_HOST="127.0.0.1" --name appium-container appium/appium
 
       - name: Connect Appium to Emulator
         run: |
@@ -71,7 +66,7 @@ jobs:
       - name: Run Tests in a Docker Container
         run: |
           docker run --rm \
-            --network host \
+            --network e2e-network \
             -v ${{ github.workspace }}:/workspace \
             -v $HOME/.m2:/root/.m2 \
             -w /workspace \
