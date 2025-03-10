@@ -24,20 +24,26 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Install Android SDK and ADB
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y adb
+          adb version  # Verify ADB installation
+
       - name: Start Android Emulator in Docker
         run: |
           docker run --privileged -d --name android-emulator \
             -p 5554:5554 -p 5555:5555 -p 4723:4723 \
-            budtmo/docker-android:emulator_9.0
+            budtmo/docker-android-x86-9.0
           sleep 10  # Give it some time to start
           docker logs android-emulator | tail -n 50  # Check emulator logs
 
-      - name: Wait for Emulator to Boot (with Timeout)
+      - name: Wait for Emulator to Boot (Inside Container)
         run: |
           start_time=$(date +%s)
           timeout=300  # 5 minutes
 
-          until adb connect localhost:5555; do
+          until docker exec android-emulator adb connect localhost:5555; do
             echo "Waiting for ADB to connect to the emulator..."
             sleep 5
             elapsed=$(( $(date +%s) - start_time ))
@@ -50,7 +56,7 @@ jobs:
           echo "Emulator connected, waiting for full boot..."
           start_time=$(date +%s)  # Reset the timer
 
-          until adb shell getprop sys.boot_completed | grep -m 1 "1"; do
+          until docker exec android-emulator adb shell getprop sys.boot_completed | grep -m 1 "1"; do
             echo "Waiting for emulator to fully boot..."
             sleep 5
             elapsed=$(( $(date +%s) - start_time ))
@@ -62,7 +68,7 @@ jobs:
           echo "Emulator is ready."
 
       - name: Verify Emulator is Running
-        run: adb devices
+        run: docker exec android-emulator adb devices
 
       - name: Start Appium Server in Docker
         run: |
