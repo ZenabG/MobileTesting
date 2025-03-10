@@ -6,6 +6,7 @@ import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
+import static io.appium.java_client.service.local.flags.GeneralServerFlag.BASEPATH;
 import io.github.cdimascio.dotenv.Dotenv;
 import java.io.File;
 import java.io.IOException;
@@ -14,8 +15,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 import java.util.logging.Logger;
-
-import static io.appium.java_client.service.local.flags.GeneralServerFlag.BASEPATH;
 
 public class AppiumSetUp {
 	protected static AndroidDriver driver;
@@ -38,12 +37,11 @@ public class AppiumSetUp {
 	}
 
 	private static String getAppiumServerUrl() {
-		String ciAppiumUrl = "http://127.0.0.1:4723/";
 		String ciEnv = System.getenv().get("CI");
 		// Check if CI is set to true
 		if ("true".equalsIgnoreCase(ciEnv)) {
 			System.out.println("Using Appium server in Docker (CI/CD mode).");
-			return ciAppiumUrl;  // Use Docker Appium in CI
+			return "http://127.0.0.1:4723/"; // Use Docker Appium in CI
 		} else {
 			System.out.println("Starting local Appium server...");
 			startLocalServer();  // Start Appium locally for local dev

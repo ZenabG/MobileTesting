@@ -59,7 +59,7 @@ jobs:
 
       - name: Push monefy apk file into container
         run: |
-          docker cp /home/myuser/localfolder/com.monefy.app.lite_1.18.0-2208_minAPI21(nodpi)_apkmirror.com appium-container:/home/androidusr/sample.apk
+          docker cp /home/myuser/localfolder/"com.monefy.app.lite_1.18.0-2208_minAPI21(nodpi)_apkmirror.com" appium-container:/home/androidusr/monefy.apk
 
       - name: Run Tests in a Docker Container
         run: |
@@ -73,5 +73,5 @@ jobs:
             -e PLATFORM_VERSION=11.0 \
             -e DEVICE_NAME="Samsung Galaxy S10" \
             -e UDID="${EMULATOR_ID}" \
-            -e APP_PATH="/home/androidusr/sample.apk" \
+            -e APP_PATH="/home/androidusr/monefy.apk" \
             maven:3.9.6-eclipse-temurin-17 mvn clean test
