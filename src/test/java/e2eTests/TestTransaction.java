@@ -66,8 +66,16 @@ public class TestTransaction extends AppiumSetUp {
 
 
     @AfterSuite
-    public void stopAppiumServer(ITestResult result) throws IOException {
-        reporterPluginSetUp.setTestInfo(getAppiumServerUrl(), driver.getSessionId().toString(), result.getMethod().getMethodName(), result.getStatus() == ITestResult.SUCCESS ? "PASS" : "FAIL", result.getThrowable() != null ? result.getThrowable().getMessage() : null);
+    public void stopAppiumServer(ITestContext context) throws IOException {
+        for (ITestResult result : context.getPassedTests().getAllResults()) {
+            reporterPluginSetUp.setTestInfo(getAppiumServerUrl(), driver.getSessionId().toString(), result.getMethod().getMethodName(), "PASS", null);
+        }
+        for (ITestResult result : context.getFailedTests().getAllResults()) {
+            reporterPluginSetUp.setTestInfo(getAppiumServerUrl(), driver.getSessionId().toString(), result.getMethod().getMethodName(), "FAIL", result.getThrowable().getMessage());
+        }
+        for (ITestResult result : context.getSkippedTests().getAllResults()) {
+            reporterPluginSetUp.setTestInfo(getAppiumServerUrl(), driver.getSessionId().toString(), result.getMethod().getMethodName(), "SKIP", null);
+        }
         driver.quit();
         String report = reporterPluginSetUp.getReport();
         reporterPluginSetUp.createReportFile(report, "report");
