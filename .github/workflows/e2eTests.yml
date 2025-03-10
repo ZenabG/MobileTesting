@@ -50,7 +50,7 @@ jobs:
 
       - name: Start Appium Server in Docker
         run: |
-          docker run --privileged -d --network host -p 4723:4723 --device=/dev/${EMULATOR_ID} --name appium-container appium/appium
+          docker run --privileged -d --network host -p 4723:4723 --device=/dev/${EMULATOR_ID} --name appium-container appium/appium --use-plugins=appium-reporter-plugin
 
       - name: Print Appium Server Logs
         run: |
@@ -75,3 +75,13 @@ jobs:
             -e UDID="${EMULATOR_ID}" \
             -e APP_PATH="/home/androidusr/monefy.apk" \
             maven:3.9.6-eclipse-temurin-17 mvn clean test
+
+      - name: Download Test Report
+        run: |
+          docker exec appium-container curl -o /workspace/report.html http://127.0.0.1:4723/getReport
+
+      - name: Upload Test Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-report
+          path: report.html
