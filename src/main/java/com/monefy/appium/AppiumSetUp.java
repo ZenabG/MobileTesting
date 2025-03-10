@@ -31,6 +31,7 @@ public class AppiumSetUp {
 		options.setCapability(MobileCapabilityType.UDID, System.getenv().get("UDID"));
 		options.setCapability("app", System.getenv().get("APP_PATH"));
 		options.setCapability("noReset", "false");
+		options.setCapability("appium:uiautomator2ServerInstallTimeout", 20000);
 		String appiumUrl = getAppiumServerUrl();
 		driver = new AndroidDriver(new URL(appiumUrl), options);
 		setupDriverTimeouts();
