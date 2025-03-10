@@ -81,7 +81,7 @@ jobs:
           docker exec appium-container curl -o /workspace/report.html http://127.0.0.1:4723/getReport
 
       - name: Upload Test Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test-report
           path: report.html
