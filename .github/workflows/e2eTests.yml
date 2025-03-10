@@ -41,10 +41,8 @@ jobs:
 
       - name: Start Appium Server in Docker
         run: |
-          docker run -d --name appium-server \
-            --network=host \
-            -p 4723:4723 \
-            appium/appium
+          docker run --privileged -d -p 4723:4723  -v /dev/bus/usb:/dev/bus/usb --name appium-container appium/appium
+
 
       - name: Verify Appium Server is Running
         run: |
