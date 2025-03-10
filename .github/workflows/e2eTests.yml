@@ -50,15 +50,17 @@ jobs:
 
       - name: Start Appium Container
         run: |
-          docker run --privileged -d --network host -p 4723:4723 --device=/dev/${EMULATOR_ID} --name appium-container
+          docker run --privileged -d --network host -p 4723:4723 --device=/dev/${EMULATOR_ID} --name appium-container appium/appium
 
       - name: Install Appium Reporter Plugin
         run: |
           docker exec appium-container appium plugin install --source=npm appium-reporter-plugin
-          
-      - name: Start Appium
+
+      - name: Restart Appium Server with Plugin
         run: |
-            docker exec appium-container appium/appium --use-plugins=appium-reporter-plugin
+          docker stop appium-container
+          docker rm appium-container
+          docker run --privileged -d --network host -p 4723:4723 --device=/dev/${EMULATOR_ID} --name appium-container appium/appium --use-plugins=appium-reporter-plugin
 
       - name: Print Appium Server Logs
         run: |
