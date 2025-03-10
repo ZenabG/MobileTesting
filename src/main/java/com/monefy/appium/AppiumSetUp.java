@@ -19,8 +19,6 @@ import java.util.logging.Logger;
 public class AppiumSetUp {
 	protected static AndroidDriver driver;
 	protected Logger log;
-
-	protected WebDriverWait wait;
 	private static AppiumDriverLocalService service;
 	private static final Dotenv dotenv = Dotenv.load();
 
