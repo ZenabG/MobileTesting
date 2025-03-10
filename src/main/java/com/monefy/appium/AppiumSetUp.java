@@ -30,8 +30,7 @@ public class AppiumSetUp {
 		options.setCapability(MobileCapabilityType.PLATFORM_VERSION, System.getenv().get("PLATFORM_VERSION"));
 		options.setCapability(MobileCapabilityType.DEVICE_NAME, System.getenv().get("DEVICE_NAME"));
 		options.setCapability(MobileCapabilityType.UDID, System.getenv().get("UDID"));
-		options.setCapability("appPackage", AppiumConstants.APP_PACKAGE);
-		options.setCapability("appActivity", AppiumConstants.APP_ACTIVITY);
+		options.setCapability("app", System.getenv().get("APP_PATH"));
 		options.setCapability("noReset", "false");
 		String appiumUrl = getAppiumServerUrl();
 		driver = new AndroidDriver(new URL(appiumUrl), options);
