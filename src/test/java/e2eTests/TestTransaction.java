@@ -82,7 +82,7 @@ public class TestTransaction extends AppiumSetUp {
             }
             driver.quit();
         }
-        String report = reporterPluginSetUp.getReport();
+        String report = reporterPluginSetUp.getReport(getAppiumServerUrl());
         reporterPluginSetUp.createReportFile(report, "report");
         killAppiumServer();
     }

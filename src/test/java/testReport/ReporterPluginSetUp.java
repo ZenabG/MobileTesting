@@ -31,8 +31,8 @@ public class ReporterPluginSetUp {
         }
     }
 
-    public String getReport() throws IOException {
-        String url = "http://localhost:4723/getReport";
+    public String getReport(String appiumUrl) throws IOException {
+        String url = appiumUrl + "getReport";
         HttpURLConnection connection = createHttpConnection(url);
         connection.setRequestMethod("GET");
 
