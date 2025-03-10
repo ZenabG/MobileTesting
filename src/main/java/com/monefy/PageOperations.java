@@ -6,7 +6,6 @@ import com.monefy.pages.OffersPage;
 import com.monefy.pages.TransactionEntryPage;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -19,20 +18,17 @@ public class PageOperations {
     private TransactionEntryPage transactionEntryPage;
     private ChooseCategoryPage chooseCategoryPage;
 
-    private final WebDriverWait wait;
-
-    public PageOperations(AndroidDriver driver) {
+    public PageOperations(AndroidDriver driver, WebDriverWait wait) {
         this.driver = driver;
         this.offersPage = new OffersPage(this.driver);
-        this.homePage = new HomePage(this.driver);
+        this.homePage = new HomePage(this.driver, wait);
         this.transactionEntryPage = new TransactionEntryPage(this.driver);
         this.chooseCategoryPage = new ChooseCategoryPage(this.driver);
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     public void skipOffers() throws InterruptedException {
         for (int i = 0; i < 4; i++) {
-            this.wait.until(ExpectedConditions.elementToBeClickable(homePage.clickGetStartedButton())).click();
+            homePage.clickGetStartedButton();
         }
 
         offersPage.clickCloseButton();

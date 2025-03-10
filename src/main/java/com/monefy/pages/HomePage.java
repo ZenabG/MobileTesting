@@ -4,9 +4,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class HomePage {
 
+    private final WebDriverWait wait;
     @FindBy(id = "com.monefy.app.lite:id/buttonContinue")
     private WebElement getStartedButton;
 
@@ -22,12 +24,13 @@ public class HomePage {
     @FindBy(xpath = " //android.widget.TextView[@resource-id=\"com.monefy.app.lite:id/income_amount_text\"]")
     private WebElement homeDisplayWheelIncomeIcon;
 
-    public HomePage(WebDriver driver) {
+    public HomePage(WebDriver driver, WebDriverWait wait) {
+        this.wait = wait;
         PageFactory.initElements(driver, this);
     }
 
     public void clickGetStartedButton() {
-        getStartedButton.click();
+        this.wait.until(ExpectedConditions.elementToBeClickable(getStartedButton.click())).click();
     }
 
     public void clickIncomeButton() {

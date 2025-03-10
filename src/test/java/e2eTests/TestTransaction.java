@@ -1,6 +1,7 @@
 package e2eTests;
 
 import java.net.MalformedURLException;
+import java.time.Duration;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,16 +16,18 @@ import static org.testng.AssertJUnit.assertTrue;
 public class TestTransaction extends AppiumSetUp {
 
     private PageOperations pageOperations;
+    private final WebDriverWait wait;
 
     @BeforeSuite
     public void startAppiumServer() throws MalformedURLException {
         createAndroidDriver();
         log = Logger.getLogger("global");
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     @BeforeMethod
     public void initialise() {
-        pageOperations = new PageOperations(driver);
+        pageOperations = new PageOperations(driver, wait);
     }
 
     @Test
