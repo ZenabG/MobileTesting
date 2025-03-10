@@ -32,7 +32,7 @@ public class PageOperations {
 
     public void skipOffers() throws InterruptedException {
         for (int i = 0; i < 4; i++) {
-            wait.until(ExpectedConditions.elementToBeClickable(homePage.clickGetStartedButton())).click();
+            this.wait.until(ExpectedConditions.elementToBeClickable(homePage.clickGetStartedButton())).click();
         }
 
         offersPage.clickCloseButton();
