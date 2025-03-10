@@ -52,7 +52,7 @@ jobs:
 
       - name: Start Appium Server in Docker
         run: |
-          docker run --privileged -d --network e2e-network -p 4723:4723 --name appium-container appium/appium --debug-log-level info
+          docker run --privileged -d --network e2e-network -p 4723:4723 --name appium-container appium/appium 
 
       - name: Verify Appium Server is Running
         run: |
