@@ -43,7 +43,7 @@ public class TestTransaction extends AppiumSetUp {
     public void testAddIncome() throws MalformedURLException, InterruptedException {
         pageOperations.skipOffers();
         pageOperations.addSalaryIncome("2500");
-//        pageOperations.addCarMortgageExpense("500");
+        pageOperations.addCarMortgageExpense("500");
         String actualIncomeBalance = pageOperations.getBalance();
 
         // Remove currency symbol, commas, and decimal point
@@ -74,24 +74,23 @@ public class TestTransaction extends AppiumSetUp {
 
     @AfterSuite
     public void stopAppiumServer(ITestContext context) throws IOException {
-        String appiumUrl = getAppiumServerUrl();
         String ciEnv = System.getenv().get("CI");
         // Check if CI is set to true
         if ("true".equalsIgnoreCase(ciEnv)) {
 
             if (driver != null) {
                 for (ITestResult result : context.getPassedTests().getAllResults()) {
-                    reporterPluginSetUp.setTestInfo(appiumUrl, driver.getSessionId().toString(), result.getMethod().getMethodName(), "PASS", null);
+                    reporterPluginSetUp.setTestInfo(getAppiumServerUrl(), driver.getSessionId().toString(), result.getMethod().getMethodName(), "PASS", null);
                 }
                 for (ITestResult result : context.getFailedTests().getAllResults()) {
-                    reporterPluginSetUp.setTestInfo(appiumUrl, driver.getSessionId().toString(), result.getMethod().getMethodName(), "FAIL", result.getThrowable().getMessage());
+                    reporterPluginSetUp.setTestInfo(getAppiumServerUrl(), driver.getSessionId().toString(), result.getMethod().getMethodName(), "FAIL", result.getThrowable().getMessage());
                 }
                 for (ITestResult result : context.getSkippedTests().getAllResults()) {
-                    reporterPluginSetUp.setTestInfo(appiumUrl, driver.getSessionId().toString(), result.getMethod().getMethodName(), "SKIP", null);
+                    reporterPluginSetUp.setTestInfo(getAppiumServerUrl(), driver.getSessionId().toString(), result.getMethod().getMethodName(), "SKIP", null);
                 }
 //                driver.quit();
             }
-            String report = reporterPluginSetUp.getReport(appiumUrl);
+            String report = reporterPluginSetUp.getReport(getAppiumServerUrl());
             reporterPluginSetUp.createReportFile(report, "report");
         }
         driver.quit();
