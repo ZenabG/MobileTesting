@@ -49,7 +49,10 @@ public class TestTransaction extends AppiumSetUp {
         // Remove currency symbol, commas, and decimal point
         actualIncomeBalance = actualIncomeBalance.replaceAll("[^\\d]", "");
 
-        assertEquals("2500", actualIncomeBalance);
+        // Convert to integer and divide by 100 to remove trailing zeroes
+        int balance = Integer.parseInt(actualIncomeBalance) / 100;
+
+        assertEquals("2500", String.valueOf(balance));
     }
 
 //    @Test
