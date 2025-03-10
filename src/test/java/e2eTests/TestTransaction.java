@@ -43,7 +43,7 @@ public class TestTransaction extends AppiumSetUp {
     public void testAddIncome() throws MalformedURLException, InterruptedException {
         pageOperations.skipOffers();
         pageOperations.addSalaryIncome("2500");
-//        pageOperations.addCarMortgageExpense("500");
+        pageOperations.addCarMortgageExpense("500");
         String actualIncomeBalance = pageOperations.getBalance();
 
         // Remove currency symbol, commas, and decimal point

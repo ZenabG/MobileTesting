@@ -24,7 +24,7 @@ public class PageOperations {
     }
 
     public String getBalance() {
-        return homePage.getBalanceButton();
+        return homePage.getDisplayWheelIncomeIconText();
     }
 
     public void skipOffers() throws InterruptedException {
