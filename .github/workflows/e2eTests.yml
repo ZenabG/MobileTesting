@@ -39,10 +39,15 @@ jobs:
           done
           echo "Emulator did not start in time" && exit 1
 
+      - name: Get Emulator Device ID
+        id: get-device-id
+        run: |
+          EMULATOR_ID=$(docker exec android-container adb devices | grep emulator | cut -f1)
+          echo "EMULATOR_ID=$EMULATOR_ID" >> $GITHUB_ENV
+
       - name: Start Appium Server in Docker
         run: |
-          docker run --privileged -d -p 4723:4723  -v /dev/bus/usb:/dev/bus/usb --name appium-container appium/appium
-
+          docker run --privileged -d -p 4723:4723 --device=/dev/${{ env.EMULATOR_ID }} --name appium-container appium/appium
 
       - name: Verify Appium Server is Running
         run: |
