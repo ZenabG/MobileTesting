@@ -41,6 +41,7 @@ public class AppiumSetUp {
 		String ciAppiumUrl = "http://127.0.0.1:4723/wd/hub";
 		System.out.println("Appium server URL: " + ciAppiumUrl);
 		String ciEnv = System.getenv().get("CI");
+		System.out.println("CI environment variable: " + ciEnv);
 		// Check if CI is set to true
 		if ("true".equalsIgnoreCase(ciEnv)) {
 			System.out.println("Using Appium server in Docker (CI/CD mode).");
