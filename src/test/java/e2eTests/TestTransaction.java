@@ -44,6 +44,7 @@ public class TestTransaction extends AppiumSetUp {
         pageOperations.skipOffers();
         pageOperations.addSalaryIncome("2500");
 //        pageOperations.addCarMortgageExpense("500");
+        Thread.sleep(4000);
         String actualIncomeBalance = pageOperations.getBalance();
         System.out.println("Actual Income Balance: " + actualIncomeBalance);
 
