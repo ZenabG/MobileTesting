@@ -21,7 +21,7 @@ public class AppiumSetUp {
 	protected static AndroidDriver driver;
 	protected Logger log;
 
-	protected WebdriverWait wait;
+	protected WebDriverWait wait;
 	private static AppiumDriverLocalService service;
 	private static final Dotenv dotenv = Dotenv.load();
 
