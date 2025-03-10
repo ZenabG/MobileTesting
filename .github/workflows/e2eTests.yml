@@ -57,6 +57,10 @@ jobs:
           sleep 10  # Wait for the server to start
           docker logs appium-container
 
+      - name: Push monefy apk file into container
+        run: |
+          docker cp /home/myuser/localfolder/com.monefy.app.lite_1.18.0-2208_minAPI21(nodpi)_apkmirror.com appium-container:/home/androidusr/sample.apk
+
       - name: Run Tests in a Docker Container
         run: |
           docker run --rm \
@@ -69,5 +73,5 @@ jobs:
             -e PLATFORM_VERSION=11.0 \
             -e DEVICE_NAME="Samsung Galaxy S10" \
             -e UDID="${EMULATOR_ID}" \
-            -e APP_PATH="com.monefy.app.lite_1.18.0-2208_minAPI21(nodpi)_apkmirror.com" \
+            -e APP_PATH="/home/androidusr/sample.apk" \
             maven:3.9.6-eclipse-temurin-17 mvn clean test
