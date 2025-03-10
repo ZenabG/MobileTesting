@@ -23,8 +23,8 @@ public class PageOperations {
         this.chooseCategoryPage = new ChooseCategoryPage(this.driver);
     }
 
-    public void BalanceButton() {
-        homePage.clickBalanceButton();
+    public String getBalance() {
+        return homePage.getBalanceButton();
     }
 
     public void skipOffers() throws InterruptedException {

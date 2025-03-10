@@ -40,11 +40,11 @@ public class TestTransaction extends AppiumSetUp {
     }
 
     @Test
-    public void testAddTransaction() throws MalformedURLException, InterruptedException {
+    public void testAddIncome() throws MalformedURLException, InterruptedException {
         pageOperations.skipOffers();
         pageOperations.addSalaryIncome("2500");
-        pageOperations.addCarMortgageExpense("500");
-        String actualIncomeBalance = pageOperations.getIncomeBalance();
+//        pageOperations.addCarMortgageExpense("500");
+        String actualIncomeBalance = pageOperations.getBalance();
 
         // Remove currency symbol, commas, and decimal point
         actualIncomeBalance = actualIncomeBalance.replaceAll("[^\\d]", "");

@@ -50,7 +50,7 @@ public class HomePage {
         homeExpenseButton.click();
     }
 
-    public void clickBalanceButton() {homeBalanceButton.click();
+    public String getBalanceButton() {homeBalanceButton.getText();
     }
 
     public String getDisplayWheelIncomeIconText() {
