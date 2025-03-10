@@ -38,7 +38,7 @@ public class AppiumSetUp {
 	}
 
 	private static String getAppiumServerUrl() {
-		String ciAppiumUrl = "http://127.0.0.1:4723/wd/hub";
+		String ciAppiumUrl = "http://localhost:4723/wd/hub";
 		System.out.println("Appium server URL: " + ciAppiumUrl);
 		String ciEnv = System.getenv().get("CI");
 		System.out.println("CI environment variable: " + ciEnv);

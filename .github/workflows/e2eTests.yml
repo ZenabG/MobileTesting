@@ -50,7 +50,7 @@ jobs:
 
       - name: Start Appium Server in Docker
         run: |
-          docker run --privileged -d --network host -p 4723:4723 --device=/dev/${EMULATOR_ID} -e APPIUM_HOST="127.0.0.1" --name appium-container appium/appium
+          docker run --privileged -d --network host -p 4723:4723 --device=/dev/${EMULATOR_ID} --name appium-container appium/appium
 
       - name: Verify Emulator running on Appium Container
         run: |
