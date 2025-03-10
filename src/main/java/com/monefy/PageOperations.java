@@ -33,6 +33,7 @@ public class PageOperations {
     public void skipOffers() throws InterruptedException {
         for (int i = 0; i < 4; i++) {
             homePage.clickGetStartedButton();
+            Thread.sleep(5000);
         }
 
         offersPage.clickCloseButton();

@@ -31,7 +31,8 @@ public class HomePage {
     }
 
     public void clickGetStartedButton() {
-        this.wait.until(ExpectedConditions.elementToBeClickable(getStartedButton)).click();
+//        this.wait.until(ExpectedConditions.(getStartedButton)).click();
+        getStartedButton.click();
     }
 
     public void clickIncomeButton() {
