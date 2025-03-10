@@ -15,6 +15,9 @@ jobs:
 
     env:
       CI: true
+      PLATFORM_NAME: Android
+      PLATFORM_VERSION: 11.0
+      DEVICE_NAME: Samsung Galaxy S10
 
     steps:
       - name: Checkout repository

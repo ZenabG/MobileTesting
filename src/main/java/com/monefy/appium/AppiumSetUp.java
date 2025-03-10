@@ -44,7 +44,7 @@ public class AppiumSetUp {
 		if ("false".equalsIgnoreCase(ciEnv)) {
 			System.out.println("Starting local Appium server...");
 			startLocalServer();  // Start Appium locally for local dev
-			return service.getUrl().toString();
+			return service.getUrl();
 		} else {
 			System.out.println("Using Appium server in Docker (CI/CD mode).");
 			return ciAppiumUrl;  // Use Docker Appium in CI
