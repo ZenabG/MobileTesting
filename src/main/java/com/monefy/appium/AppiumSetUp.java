@@ -8,6 +8,7 @@ import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import static io.appium.java_client.service.local.flags.GeneralServerFlag.BASEPATH;
 import io.github.cdimascio.dotenv.Dotenv;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
