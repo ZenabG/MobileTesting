@@ -38,7 +38,7 @@ public class AppiumSetUp {
 	}
 
 	private static String getAppiumServerUrl() {
-		String ciAppiumUrl = "http://0.0.0.0:4723/wd/hub";
+		String ciAppiumUrl = "http://localhost:4723/wd/hub";
 		String ciEnv = dotenv.get("CI");
 		// Check if CI is set to true
 		if ("true".equalsIgnoreCase(ciEnv)) {

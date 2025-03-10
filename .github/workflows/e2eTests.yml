@@ -18,14 +18,19 @@ jobs:
       PLATFORM_NAME: Android
       PLATFORM_VERSION: 11.0
       DEVICE_NAME: Samsung Galaxy S10
+      ADB_PORT: 5037  # Default ADB port
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Start Docker Network
+        run: |
+          docker network create e2e-network  
+
       - name: Start Android Emulator in Docker
         run: |
-          docker run -d -p 6080:6080 -e EMULATOR_DEVICE="Samsung Galaxy S10" -e WEB_VNC=true --device /dev/kvm --name android-container budtmo/docker-android:emulator_11.0
+          docker run -d --network e2e-network -p 6080:6080 -e EMULATOR_DEVICE="Samsung Galaxy S10" -e WEB_VNC=true --device /dev/kvm --name android-container budtmo/docker-android:emulator_11.0
 
       - name: Verify Emulator is Running
         run: |
@@ -47,12 +52,12 @@ jobs:
 
       - name: Start Appium Server in Docker
         run: |
-          docker run --privileged -d -p 4723:4723 --device=${{ env.EMULATOR_ID }} --name appium-container appium/appium
+          docker run --privileged -d --network e2e-network -p 4723:4723 --name appium-container appium/appium --debug-log-level info
 
       - name: Verify Appium Server is Running
         run: |
           for i in {1..30}; do
-            if curl -s http://0.0.0.0:4723/wd/hub/status | grep -q '"status":0'; then
+            if curl -s http://localhost:4723/wd/hub/status | grep -q '"status":0'; then
               echo "Appium server is ready!"
               exit 0
             fi
@@ -61,15 +66,16 @@ jobs:
           done
           echo "Appium server did not start in time" && exit 1
 
+      - name: Connect Appium to Emulator
+        run: |
+          docker exec appium-container /bin/bash -c "adb connect android-container:$ADB_PORT"
+          docker exec appium-container /bin/bash -c "adb devices"  # Verify device connection
+
       - name: Run Tests in a Docker Container
         run: |
           docker run --rm \
-            --network=host \
+            --network e2e-network \
             -v ${{ github.workspace }}:/workspace \
             -v $HOME/.m2:/root/.m2 \
             -w /workspace \
             maven:3.9.6-eclipse-temurin-17 mvn clean test
-
-      - name: Force Stop Emulator if Stuck
-        if: always()
-        run: docker rm -f android-container || true
