@@ -64,7 +64,8 @@ jobs:
             -v $HOME/.m2:/root/.m2 \
             -w /workspace \
             -e CI=true \
-            -e PLATFORM_NAME=Android \
+            -e PLATFORM_NAME=android \
             -e PLATFORM_VERSION=11.0 \
             -e DEVICE_NAME="Samsung Galaxy S10" \
+            -e UDID="${EMULATOR_ID}" \
             maven:3.9.6-eclipse-temurin-17 mvn clean test

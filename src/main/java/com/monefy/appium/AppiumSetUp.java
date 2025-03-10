@@ -29,6 +29,7 @@ public class AppiumSetUp {
 		options.setCapability(MobileCapabilityType.PLATFORM_NAME, System.getenv().get("PLATFORM_NAME"));
 		options.setCapability(MobileCapabilityType.PLATFORM_VERSION, System.getenv().get("PLATFORM_VERSION"));
 		options.setCapability(MobileCapabilityType.DEVICE_NAME, System.getenv().get("DEVICE_NAME"));
+		options.setCapability(MobileCapabilityType.UDID, System.getenv().get("UDID"));
 		options.setCapability("appPackage", AppiumConstants.APP_PACKAGE);
 		options.setCapability("appActivity", AppiumConstants.APP_ACTIVITY);
 		options.setCapability("noReset", "false");
@@ -39,9 +40,7 @@ public class AppiumSetUp {
 
 	private static String getAppiumServerUrl() {
 		String ciAppiumUrl = "http://localhost:4723/wd/hub";
-		System.out.println("Appium server URL: " + ciAppiumUrl);
 		String ciEnv = System.getenv().get("CI");
-		System.out.println("CI environment variable: " + ciEnv);
 		// Check if CI is set to true
 		if ("true".equalsIgnoreCase(ciEnv)) {
 			System.out.println("Using Appium server in Docker (CI/CD mode).");
