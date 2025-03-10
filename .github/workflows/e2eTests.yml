@@ -44,6 +44,15 @@ jobs:
           done
           echo "Emulator did not start in time" && exit 1
 
+      - name: Check Emulator Status
+        run: |
+          docker exec android-container adb devices | grep emulator | grep -q "device"
+          if [ $? -eq 0 ]; then
+            echo "Emulator is running"
+          else
+            echo "Emulator is not running" && exit 1
+          fi
+
       - name: Get Emulator Device ID
         id: get-device-id
         run: |
