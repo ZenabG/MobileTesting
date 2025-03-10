@@ -56,7 +56,7 @@ jobs:
 
       - name: Connect Appium to Emulator
         run: |
-          docker exec appium-container /bin/bash -c "adb connect android-container:$ADB_PORT"
+          docker exec appium-container /bin/bash -c "adb connect android-container:6080"
           docker exec appium-container /bin/bash -c "adb devices"  # Verify device connection
 
       - name: Run Tests in a Docker Container

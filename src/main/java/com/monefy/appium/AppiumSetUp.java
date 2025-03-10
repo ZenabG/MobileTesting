@@ -33,6 +33,7 @@ public class AppiumSetUp {
 		options.setCapability("appActivity", AppiumConstants.APP_ACTIVITY);
 		options.setCapability("noReset", "false");
 		String appiumUrl = getAppiumServerUrl();
+		System.out.println("Appium URL: " + appiumUrl);
 		driver = new AndroidDriver(new URL(appiumUrl), options);
 		setupDriverTimeouts();
 	}
