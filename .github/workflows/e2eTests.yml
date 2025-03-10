@@ -59,7 +59,7 @@ jobs:
 
       - name: Push monefy apk file into container
         run: |
-          docker cp '/home/myuser/localfolder/com.monefy.app.lite_1.18.0-2208_minAPI21(nodpi)_apkmirror.com.apk' appium-container:/home/androidusr/monefy.apk
+          docker cp 'com.monefy.app.lite_1.18.0-2208_minAPI21(nodpi)_apkmirror.com.apk' appium-container:/home/androidusr/monefy.apk
 
       - name: Run Tests in a Docker Container
         run: |
