@@ -30,19 +30,19 @@ jobs:
 
       - name: Start Android Emulator in Docker
         run: |
-          docker run -d --network e2e-network -p 6080:6080 -e EMULATOR_DEVICE="Samsung Galaxy S10" -e WEB_VNC=true --device /dev/kvm --name android-container budtmo/docker-android:emulator_11.0
+          docker run -d --network host -p 6080:6080 -e EMULATOR_DEVICE="Samsung Galaxy S10" -e WEB_VNC=true --device /dev/kvm --name android-container budtmo/docker-android:emulator_11.0
 
-      - name: Verify Emulator is Running
+      - name: Verify Emulator is Fully Booted
         run: |
           for i in {1..30}; do
-            if docker exec android-container cat device_status 2>/dev/null; then
-              echo "Emulator is ready!"
+            if [ "$(docker exec android-container adb shell getprop sys.boot_completed 2>/dev/null)" = "1" ]; then
+              echo "Emulator is fully booted!"
               exit 0
             fi
-            echo "Waiting for emulator to be ready..."
+            echo "Waiting for emulator to be fully booted..."
             sleep 5
           done
-          echo "Emulator did not start in time" && exit 1
+          echo "Emulator did not fully boot in time" && exit 1
 
       - name: Check Emulator Status
         run: |
@@ -56,7 +56,7 @@ jobs:
 
       - name: Start Appium Server in Docker
         run: |
-          docker run --privileged -d --network e2e-network -p 4723:4723 --device=/dev/${EMULATOR_ID} -e APPIUM_HOST="127.0.0.1" --name appium-container appium/appium
+          docker run --privileged -d --network host -p 4723:4723 --device=/dev/${EMULATOR_ID} -e APPIUM_HOST="127.0.0.1" --name appium-container appium/appium
 
       - name: Connect Appium to Emulator
         run: |
@@ -66,7 +66,7 @@ jobs:
       - name: Run Tests in a Docker Container
         run: |
           docker run --rm \
-            --network e2e-network \
+            --network host \
             -v ${{ github.workspace }}:/workspace \
             -v $HOME/.m2:/root/.m2 \
             -w /workspace \
