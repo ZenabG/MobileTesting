@@ -74,7 +74,13 @@ public class TestTransaction extends AppiumSetUp {
     public void stopAppiumServer(ITestContext context) throws IOException {
         String appiumUrl = getAppiumServerUrl();
         System.out.println("Appium URL: " + appiumUrl);
-         if (driver != null) {
+
+        // Remove /wd/hub/ from the URL if present
+        if (appiumUrl.contains("/wd/hub/")) {
+            appiumUrl = appiumUrl.replace("/wd/hub", "");
+        }
+
+        if (driver != null) {
             for (ITestResult result : context.getPassedTests().getAllResults()) {
                 reporterPluginSetUp.setTestInfo(appiumUrl, driver.getSessionId().toString(), result.getMethod().getMethodName(), "PASS", null);
             }
