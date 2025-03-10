@@ -73,27 +73,25 @@ public class TestTransaction extends AppiumSetUp {
     @AfterSuite
     public void stopAppiumServer(ITestContext context) throws IOException {
         String appiumUrl = getAppiumServerUrl();
-        System.out.println("Appium URL: " + appiumUrl);
+        String ciEnv = System.getenv().get("CI");
+        // Check if CI is set to true
+        if ("true".equalsIgnoreCase(ciEnv)) {
 
-        // Remove /wd/hub/ from the URL if present
-        if (appiumUrl.contains("/wd/hub/")) {
-            appiumUrl = appiumUrl.replace("/wd/hub", "");
+            if (driver != null) {
+                for (ITestResult result : context.getPassedTests().getAllResults()) {
+                    reporterPluginSetUp.setTestInfo(appiumUrl, driver.getSessionId().toString(), result.getMethod().getMethodName(), "PASS", null);
+                }
+                for (ITestResult result : context.getFailedTests().getAllResults()) {
+                    reporterPluginSetUp.setTestInfo(appiumUrl, driver.getSessionId().toString(), result.getMethod().getMethodName(), "FAIL", result.getThrowable().getMessage());
+                }
+                for (ITestResult result : context.getSkippedTests().getAllResults()) {
+                    reporterPluginSetUp.setTestInfo(appiumUrl, driver.getSessionId().toString(), result.getMethod().getMethodName(), "SKIP", null);
+                }
+                driver.quit();
+            }
+            String report = reporterPluginSetUp.getReport(appiumUrl);
+            reporterPluginSetUp.createReportFile(report, "report");
         }
-
-        if (driver != null) {
-            for (ITestResult result : context.getPassedTests().getAllResults()) {
-                reporterPluginSetUp.setTestInfo(appiumUrl, driver.getSessionId().toString(), result.getMethod().getMethodName(), "PASS", null);
-            }
-            for (ITestResult result : context.getFailedTests().getAllResults()) {
-                reporterPluginSetUp.setTestInfo(appiumUrl, driver.getSessionId().toString(), result.getMethod().getMethodName(), "FAIL", result.getThrowable().getMessage());
-            }
-            for (ITestResult result : context.getSkippedTests().getAllResults()) {
-                reporterPluginSetUp.setTestInfo(appiumUrl, driver.getSessionId().toString(), result.getMethod().getMethodName(), "SKIP", null);
-            }
-            driver.quit();
-        }
-        String report = reporterPluginSetUp.getReport(appiumUrl);
-        reporterPluginSetUp.createReportFile(report, "report");
         killAppiumServer();
     }
 }
