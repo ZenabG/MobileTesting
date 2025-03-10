@@ -129,6 +129,7 @@ jobs:
             echo "Report downloaded successfully"
           else
             echo "Report not found!" && exit 1
+          fi
 
       - name: Upload Test Report
         uses: actions/upload-artifact@v4
