@@ -39,7 +39,7 @@ public class TestTransaction extends AppiumSetUp {
         String actualIncomeBalance = pageOperations.getIncomeBalance();
 
         // Remove currency symbol, commas, and decimal point
-        actualIncomeBalance = actualIncomeBalance.replaceAll("[^\\d]", "");
+//        actualIncomeBalance = actualIncomeBalance.replaceAll("[^\\d]", "");
 
         assertEquals("2500", actualIncomeBalance );
     }
