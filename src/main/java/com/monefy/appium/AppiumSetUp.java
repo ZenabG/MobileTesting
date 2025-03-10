@@ -9,8 +9,6 @@ import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import static io.appium.java_client.service.local.flags.GeneralServerFlag.BASEPATH;
 import io.github.cdimascio.dotenv.Dotenv;
 import java.io.File;
-import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;

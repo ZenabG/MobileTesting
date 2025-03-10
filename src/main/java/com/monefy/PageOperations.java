@@ -5,10 +5,7 @@ import com.monefy.pages.HomePage;
 import com.monefy.pages.OffersPage;
 import com.monefy.pages.TransactionEntryPage;
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 public class PageOperations {
 
