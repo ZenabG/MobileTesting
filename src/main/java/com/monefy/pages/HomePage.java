@@ -42,8 +42,7 @@ public class HomePage {
         homeExpenseButton.click();
     }
 
-    public void clickBalanceButton() {
-        homeBalanceButton.click();
+    public void clickBalanceButton() {homeBalanceButton.click();
     }
 
     public String getDisplayWheelIncomeIconText() {

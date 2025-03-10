@@ -32,7 +32,7 @@ public class TestTransaction extends AppiumSetUp {
     }
 
     @Test
-    public void testAddTransation() throws MalformedURLException, InterruptedException {
+    public void testAddTransaction() throws MalformedURLException, InterruptedException {
         pageOperations.skipOffers();
         pageOperations.addSalaryIncome("2500");
         pageOperations.addCarMortgageExpense("500");
@@ -41,8 +41,23 @@ public class TestTransaction extends AppiumSetUp {
         // Remove currency symbol, commas, and decimal point
         actualIncomeBalance = actualIncomeBalance.replaceAll("[^\\d]", "");
 
-        assertEquals("2500", actualIncomeBalance );
+        assertEquals("250000", actualIncomeBalance );
     }
+
+//    @Test
+//    public void testUpdateTransaction() throws MalformedURLException, InterruptedException {
+//
+//        pageOperations.BalanceButton();
+//        pageOperations.addSalaryIncome("2500");
+//        pageOperations.updateSalaryIncome("3000");
+//        String actualIncomeBalance = pageOperations.getIncomeBalance();
+//
+//        // Remove currency symbol, commas, and decimal point
+//        actualIncomeBalance = actualIncomeBalance.replaceAll("[^\\d]", "");
+//
+//        assertEquals("300000", actualIncomeBalance);
+//    }
+
 
     @AfterSuite
     public void stopAppiumServer() {
