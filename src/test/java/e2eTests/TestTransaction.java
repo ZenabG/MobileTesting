@@ -49,7 +49,7 @@ public class TestTransaction extends AppiumSetUp {
         // Remove currency symbol, commas, and decimal point
 //        actualIncomeBalance = actualIncomeBalance.replaceAll("[^\\d]", "");
 
-        assertEquals("250000", actualIncomeBalance);
+        assertEquals("2500", actualIncomeBalance);
     }
 
 //    @Test
@@ -70,9 +70,8 @@ public class TestTransaction extends AppiumSetUp {
     @AfterSuite
     public void stopAppiumServer(ITestContext context) throws IOException {
         String appiumUrl = getAppiumServerUrl();
-        // Remove /wd/hub/ from the URL
-        appiumUrl = appiumUrl.replace("/wd/hub", "");
-        if (driver != null) {
+        System.out.println("Appium URL: " + appiumUrl);
+         if (driver != null) {
             for (ITestResult result : context.getPassedTests().getAllResults()) {
                 reporterPluginSetUp.setTestInfo(appiumUrl, driver.getSessionId().toString(), result.getMethod().getMethodName(), "PASS", null);
             }

@@ -33,6 +33,7 @@ public class ReporterPluginSetUp {
 
     public String getReport(String appiumUrl) throws IOException {
         String url = appiumUrl + "getReport";
+
         HttpURLConnection connection = createHttpConnection(url);
         connection.setRequestMethod("GET");
 
