@@ -17,49 +17,68 @@ jobs:
       PLATFORM_NAME: android
       PLATFORM_VERSION: 9.0
       DEVICE_NAME: any
+      EMULATOR_PORT: 5554
+      APPIUM_PORT: 4723
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Find available ports
-        id: find-ports
+      - name: Start Android Emulator in Docker
         run: |
-          EMULATOR_PORT=$(comm -23 <(seq 5554 5584) <(lsof -i -P -n | grep LISTEN | awk '{print $9}' | cut -d: -f2) | shuf -n 1)
-          APPIUM_PORT=$(comm -23 <(seq 4723 4753) <(lsof -i -P -n | grep LISTEN | awk '{print $9}' | cut -d: -f2) | shuf -n 1)
-          echo "EMULATOR_PORT=$EMULATOR_PORT" >> $GITHUB_ENV
-          echo "APPIUM_PORT=$APPIUM_PORT" >> $GITHUB_ENV
+          docker run --privileged -d --name android-emulator \
+            -p 5554:5554 -p 5555:5555 -p 4723:4723 \
+            budtmo/docker-android-x86-9.0
+          sleep 10  # Give it some time to start
+          docker logs android-emulator | tail -n 50  # Check emulator logs
 
-      - name: Start Android emulator
+      - name: Wait for Emulator to Boot (with Timeout)
         run: |
-          docker run --privileged -d -p ${{ env.EMULATOR_PORT }}:5554 -p ${{ env.APPIUM_PORT }}:4723 budtmo/docker-android:emulator_9.0
+          start_time=$(date +%s)
+          timeout=300  # 5 minutes
 
-      - name: Wait for Android emulator to start
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y adb
-          adb start-server
-          adb wait-for-device
-          adb shell input keyevent 82
-
-      - name: Wait for emulator to be ready
-        run: |
-          boot_completed=""
-          while [ -z "$boot_completed" ]; do
-            boot_completed=$(adb shell getprop sys.boot_completed 2>&1)
-            echo "Waiting for emulator to boot..."
+          until adb connect localhost:5555; do
+            echo "Waiting for ADB to connect to the emulator..."
             sleep 5
+            elapsed=$(( $(date +%s) - start_time ))
+            if [[ $elapsed -gt $timeout ]]; then
+              echo "Timeout reached! Emulator did not start."
+              exit 1
+            fi
           done
-          echo "Emulator booted successfully."
 
-      - name: Verify emulator is running
+          echo "Emulator connected, waiting for full boot..."
+          start_time=$(date +%s)  # Reset the timer
+
+          until adb shell getprop sys.boot_completed | grep -m 1 "1"; do
+            echo "Waiting for emulator to fully boot..."
+            sleep 5
+            elapsed=$(( $(date +%s) - start_time ))
+            if [[ $elapsed -gt $timeout ]]; then
+              echo "Timeout reached! Emulator did not fully boot."
+              exit 1
+            fi
+          done
+          echo "Emulator is ready."
+
+      - name: Verify Emulator is Running
         run: adb devices
 
-      - name: Start Appium server
+      - name: Start Appium Server in Docker
         run: |
-          npm install -g appium
-          appium driver install uiautomator2
-          appium -p ${{ env.APPIUM_PORT }} &
+          docker run -d --name appium-server \
+            --network=host \
+            -p 4723:4723 \
+            appium/appium
 
-      - name: Run tests
-        run: mvn clean test
+      - name: Run Tests in a Docker Container
+        run: |
+          docker run --rm \
+            --network=host \
+            -v ${{ github.workspace }}:/workspace \
+            -w /workspace \
+            maven:3.14.0-openjdk-17 mvn clean test
+
+      - name: Force Stop Emulator if Stuck
+        if: always()
+        run: docker rm -f android-emulator || true
