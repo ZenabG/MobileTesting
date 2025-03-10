@@ -39,7 +39,7 @@ public class AppiumSetUp {
 		setupDriverTimeouts();
 	}
 
-	private static String getAppiumServerUrl() {
+	public static String getAppiumServerUrl() {
 		String ciEnv = System.getenv().get("CI");
 		// Check if CI is set to true
 		if ("true".equalsIgnoreCase(ciEnv)) {

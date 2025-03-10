@@ -13,17 +13,21 @@ import com.monefy.PageOperations;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import testReport.ReporterPluginSetUp;
 
 public class TestTransaction extends AppiumSetUp {
 
     private PageOperations pageOperations;
     private WebDriverWait wait;
 
+    private ReporterPluginSetUp reporterPluginSetUp;
+
     @BeforeSuite
     public void startAppiumServer() throws MalformedURLException {
         createAndroidDriver();
         log = Logger.getLogger("global");
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        reporterPluginSetUp = new ReporterPluginSetUp();
     }
 
     @BeforeMethod
@@ -61,6 +65,7 @@ public class TestTransaction extends AppiumSetUp {
 
     @AfterSuite
     public void stopAppiumServer() {
+        ReporterPluginSetUp.setTestInfo(getAppiumServerUrl(), driver.getSessionId().toString(), result.getMethod().getMethodName(), result.getStatus() == ITestResult.SUCCESS ? "PASS" : "FAIL", result.getThrowable() != null ? result.getThrowable().getMessage() : null);
         killAppiumServer();
     }
 }

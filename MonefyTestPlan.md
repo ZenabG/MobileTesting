@@ -33,7 +33,7 @@ This test plan covers the exploratory testing of the Monefy mobile application (
 - The framework will focus on end-to-end (E2E) testing for the top 3 selected user flows.
 - **Tech Stack**:
 	- **Appium**: For mobile test automation
-	- **JUnit**: For test execution and reporting
+	- **JUnit**: For test execution and testReport
 	- **Docker**: For containerization
 	- **Gradle**: For build and dependency management
 	- **Maven**: For dependency management
