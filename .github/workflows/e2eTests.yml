@@ -34,7 +34,7 @@ jobs:
         run: |
           docker run --privileged -d --name android-emulator \
             -p 5554:5554 -p 5555:5555 -p 4723:4723 \
-            budtmo/docker-android-x86-9.0
+            budtmo/docker-android:emulator_9.0
           sleep 10  # Give it some time to start
           docker logs android-emulator | tail -n 50  # Check emulator logs
 
