@@ -49,8 +49,6 @@ public class TestTransaction extends AppiumSetUp {
         // Remove currency symbol, commas, and decimal point
         actualIncomeBalance = actualIncomeBalance.replaceAll("[^\\d]", "");
 
-        System.out.println("actualIncomeBalance: " + actualIncomeBalance);
-
         // Convert to integer and divide by 100 to remove trailing zeroes
         int balance = Integer.parseInt(actualIncomeBalance) / 100;
 
@@ -89,7 +87,7 @@ public class TestTransaction extends AppiumSetUp {
                 for (ITestResult result : context.getSkippedTests().getAllResults()) {
                     reporterPluginSetUp.setTestInfo(appiumUrl, driver.getSessionId().toString(), result.getMethod().getMethodName(), "SKIP", null);
                 }
-//                driver.quit();
+                driver.quit();
             }
             String report = reporterPluginSetUp.getReport(appiumUrl);
             reporterPluginSetUp.createReportFile(report, "report");
