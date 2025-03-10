@@ -48,19 +48,22 @@ jobs:
           EMULATOR_ID=$(docker exec android-container adb devices | grep emulator | cut -f1)
           echo "EMULATOR_ID=$EMULATOR_ID" >> $GITHUB_ENV
 
-      - name: Start Appium Container
+      - name: Create Dockerfile for Custom Appium Image
         run: |
-          docker run --privileged -d --network host -p 4723:4723 --device=/dev/${EMULATOR_ID} --name appium-container appium/appium
+          cat <<EOF > Dockerfile
+          FROM appium/appium:latest
+          RUN appium plugin install --source=npm appium-reporter-plugin
+          EXPOSE 4723
+          CMD ["appium", "--use-plugins=appium-reporter-plugin"]
+          EOF
 
-      - name: Install Appium Reporter Plugin
+      - name: Build Custom Appium Docker Image
         run: |
-          docker exec appium-container appium plugin install --source=npm appium-reporter-plugin
+          docker build -t custom-appium .
 
-      - name: Restart Appium Server with Plugin
+      - name: Start Appium Container with Plugin
         run: |
-          docker stop appium-container
-          docker rm appium-container
-          docker run --privileged -d --network host -p 4723:4723 --device=/dev/${EMULATOR_ID} --name appium-container appium/appium --use-plugins=appium-reporter-plugin
+          docker run --privileged -d --network host -p 4723:4723 --name appium-container custom-appium
 
       - name: Print Appium Server Logs
         run: |
