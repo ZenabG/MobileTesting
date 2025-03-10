@@ -1,5 +1,6 @@
 package e2eTests;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.time.Duration;
 import java.util.logging.Logger;
@@ -64,8 +65,11 @@ public class TestTransaction extends AppiumSetUp {
 
 
     @AfterSuite
-    public void stopAppiumServer() {
-        ReporterPluginSetUp.setTestInfo(getAppiumServerUrl(), driver.getSessionId().toString(), result.getMethod().getMethodName(), result.getStatus() == ITestResult.SUCCESS ? "PASS" : "FAIL", result.getThrowable() != null ? result.getThrowable().getMessage() : null);
+    public void stopAppiumServer() throws IOException {
+        reporterPluginSetUp.setTestInfo(getAppiumServerUrl(), driver.getSessionId().toString(), result.getMethod().getMethodName(), result.getStatus() == ITestResult.SUCCESS ? "PASS" : "FAIL", result.getThrowable() != null ? result.getThrowable().getMessage() : null);
+        driver.quit();
+        String report = reporterPluginSetUp.getReport();
+        reporterPluginSetUp.createReportFile(report, "report");
         killAppiumServer();
     }
 }

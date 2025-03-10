@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public class ReporterPluginSetUp {
 
-    public static void setTestInfo(String appiumUrl, String sessionId, String testName, String testStatus, String error) {
+    public void setTestInfo(String appiumUrl, String sessionId, String testName, String testStatus, String error) {
         try {
             String url = appiumUrl + "setTestInfo";
             HttpURLConnection connection = createHttpConnection(url);
@@ -59,7 +59,7 @@ public class ReporterPluginSetUp {
         fileWriter.close();
     }
 
-    private static HttpURLConnection createHttpConnection(String url) throws IOException {
+    private HttpURLConnection createHttpConnection(String url) throws IOException {
         URL appiumUrl = new URL(url);
         return (HttpURLConnection) appiumUrl.openConnection();
     }

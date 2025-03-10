@@ -73,12 +73,8 @@ public class AppiumSetUp {
 
 	protected void killAppiumServer() {
 		String ciEnv = System.getenv().get("CI");
+
 		// Check if CI is set to true
-
-		if (driver != null) {
-			driver.quit ();
-		}
-
 		if ("true".equalsIgnoreCase(ciEnv)) {
 			System.out.println("Appium server in Docker (CI/CD mode) will be stopped automatically.");
 		} else {
