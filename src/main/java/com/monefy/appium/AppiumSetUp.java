@@ -41,26 +41,13 @@ public class AppiumSetUp {
 		String ciAppiumUrl = "http://localhost:4723/wd/hub";
 		String ciEnv = dotenv.get("CI");
 		// Check if CI is set to true
-		if ("true".equalsIgnoreCase(ciEnv) && isAppiumRunning(ciAppiumUrl)) {
+		if ("true".equalsIgnoreCase(ciEnv)) {
 			System.out.println("Using Appium server in Docker (CI/CD mode).");
 			return ciAppiumUrl;  // Use Docker Appium in CI
 		} else {
 			System.out.println("Starting local Appium server...");
 			startLocalServer();  // Start Appium locally for local dev
 			return service.getUrl().toString();
-		}
-	}
-
-	private static boolean isAppiumRunning(String url) {
-		try {
-			HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-			connection.setRequestMethod("HEAD");
-			connection.setConnectTimeout(3000);
-			connection.setReadTimeout(3000);
-			connection.connect();
-			return connection.getResponseCode() == 200;
-		} catch (IOException e) {
-			return false;
 		}
 	}
 
