@@ -18,15 +18,10 @@ jobs:
       PLATFORM_NAME: Android
       PLATFORM_VERSION: 11.0
       DEVICE_NAME: Samsung Galaxy S10
-      ADB_PORT: 5037  # Default ADB port
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
-      - name: Start Docker Network
-        run: |
-          docker network create e2e-network  
 
       - name: Start Android Emulator in Docker
         run: |
@@ -58,9 +53,8 @@ jobs:
         run: |
           docker run --privileged -d --network host -p 4723:4723 --device=/dev/${EMULATOR_ID} -e APPIUM_HOST="127.0.0.1" --name appium-container appium/appium
 
-      - name: Connect Appium to Emulator
+      - name: Verify Emulator running on Appium Container
         run: |
-          docker exec appium-container /bin/bash -c "adb connect android-container:6080"
           docker exec appium-container /bin/bash -c "adb devices"  # Verify device connection
 
       - name: Run Tests in a Docker Container

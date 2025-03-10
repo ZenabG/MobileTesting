@@ -26,21 +26,20 @@ public class AppiumSetUp {
 	public static void createAndroidDriver() throws MalformedURLException {
 		UiAutomator2Options options = new UiAutomator2Options();
 		// Set Appium desired capabilities
-		options.setCapability(MobileCapabilityType.PLATFORM_NAME, dotenv.get("PLATFORM_NAME"));
-		options.setCapability(MobileCapabilityType.PLATFORM_VERSION, dotenv.get("PLATFORM_VERSION"));
-		options.setCapability(MobileCapabilityType.DEVICE_NAME, dotenv.get("DEVICE_NAME"));
+		options.setCapability(MobileCapabilityType.PLATFORM_NAME, System.getenv().get("PLATFORM_NAME"));
+		options.setCapability(MobileCapabilityType.PLATFORM_VERSION, System.getenv().get("PLATFORM_VERSION"));
+		options.setCapability(MobileCapabilityType.DEVICE_NAME, System.getenv().get("DEVICE_NAME"));
 		options.setCapability("appPackage", AppiumConstants.APP_PACKAGE);
 		options.setCapability("appActivity", AppiumConstants.APP_ACTIVITY);
 		options.setCapability("noReset", "false");
 		String appiumUrl = getAppiumServerUrl();
-		System.out.println("Appium URL: " + appiumUrl);
 		driver = new AndroidDriver(new URL(appiumUrl), options);
 		setupDriverTimeouts();
 	}
 
 	private static String getAppiumServerUrl() {
 		String ciAppiumUrl = "http://127.0.0.1:4723/wd/hub";
-		String ciEnv = dotenv.get("CI");
+		String ciEnv = System.getenv().get("CI");
 		// Check if CI is set to true
 		if ("true".equalsIgnoreCase(ciEnv)) {
 			System.out.println("Using Appium server in Docker (CI/CD mode).");
