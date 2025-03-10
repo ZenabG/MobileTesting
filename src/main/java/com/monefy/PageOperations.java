@@ -24,14 +24,9 @@ public class PageOperations {
     }
 
     public void skipOffers() throws InterruptedException {
-        homePage.clickGetStartedButton();
-        Thread.sleep(2000);
-        homePage.clickGetStartedButton();
-        Thread.sleep(2000);
-        homePage.clickIncomeButton();
-        Thread.sleep(2000);
-        homePage.clickIncomeButton();
-        Thread.sleep(2000);
+        for (int i = 0; i < 4; i++) {
+            wait.until(ExpectedConditions.elementToBeClickable(homePage.clickGetStartedButton())).click();
+        }
 
         offersPage.clickCloseButton();
     }

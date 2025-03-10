@@ -19,6 +19,8 @@ import java.util.logging.Logger;
 public class AppiumSetUp {
 	protected static AndroidDriver driver;
 	protected Logger log;
+
+	protected WebdriverWait wait;
 	private static AppiumDriverLocalService service;
 	private static final Dotenv dotenv = Dotenv.load();
 
@@ -69,6 +71,7 @@ public class AppiumSetUp {
 		driver.manage ()
 				.timeouts ()
 				.implicitlyWait (Duration.ofSeconds (30));
+		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 	}
 
 	protected void killAppiumServer() {
