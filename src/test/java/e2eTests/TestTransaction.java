@@ -15,6 +15,7 @@ import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import testReport.ReporterPluginSetUp;
+import org.testng.ITestResult;
 
 public class TestTransaction extends AppiumSetUp {
 
@@ -65,7 +66,7 @@ public class TestTransaction extends AppiumSetUp {
 
 
     @AfterSuite
-    public void stopAppiumServer() throws IOException {
+    public void stopAppiumServer(ITestResult result) throws IOException {
         reporterPluginSetUp.setTestInfo(getAppiumServerUrl(), driver.getSessionId().toString(), result.getMethod().getMethodName(), result.getStatus() == ITestResult.SUCCESS ? "PASS" : "FAIL", result.getThrowable() != null ? result.getThrowable().getMessage() : null);
         driver.quit();
         String report = reporterPluginSetUp.getReport();

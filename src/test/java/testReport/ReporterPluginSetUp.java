@@ -54,7 +54,7 @@ public class ReporterPluginSetUp {
     }
 
     public void createReportFile(String data, String fileName) throws IOException {
-        FileWriter fileWriter = new FileWriter(appiumReports + "/" + fileName + ".html");
+        FileWriter fileWriter = new FileWriter("appiumReports" + "/" + fileName + ".html");
         fileWriter.write(data);
         fileWriter.close();
     }
