@@ -89,17 +89,14 @@ jobs:
             -e APP_PATH="/home/androidusr/monefy.apk" \
             maven:3.9.6-eclipse-temurin-17 mvn clean test
 
-      - name: Set Execution Time
-        run: echo "EXEC_TIME=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> $GITHUB_ENV
-
       - name: Set Test Info in Appium Reporter Plugin
         run: |
           curl -X POST "http://127.0.0.1:4723/setTestInfo" \
           -H "Content-Type: application/json" \
           -d '{
                 "testName": "Android E2E Tests",
-                "executionTime": "'"${EXEC_TIME}"'",
-                "status": "running"
+                "testStatus": "running",
+                "error": ""
               }' || echo "Failed to set test info"
 
       - name: Download Test Report from Appium Server
