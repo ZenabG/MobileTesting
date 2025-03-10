@@ -49,7 +49,7 @@ jobs:
       - name: Verify Appium Server is Running
         run: |
           for i in {1..30}; do
-            if curl -s http://localhost:4723/wd/hub/status | grep -q '"status":0'; then
+            if curl -s http://0.0.0.0:4723/wd/hub/status | grep -q '"status":0'; then
               echo "Appium server is ready!"
               exit 0
             fi
