@@ -92,6 +92,7 @@ public class TestTransaction extends AppiumSetUp {
             String report = reporterPluginSetUp.getReport(appiumUrl);
             reporterPluginSetUp.createReportFile(report, "report");
         }
+        driver.quit();
         killAppiumServer();
     }
 }
