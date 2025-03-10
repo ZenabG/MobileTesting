@@ -46,7 +46,7 @@ jobs:
             --network=host \
             -v ${{ github.workspace }}:/workspace \
             -w /workspace \
-            maven:3.14.0-openjdk-17 mvn clean test
+            mvn clean test
 
       - name: Force Stop Emulator if Stuck
         if: always()
