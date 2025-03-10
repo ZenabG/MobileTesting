@@ -52,17 +52,23 @@ jobs:
 
       - name: Start Appium Server in Docker
         run: |
-          docker run --privileged -d --network e2e-network -p 4723:4723 --name appium-container appium/appium 
+          docker run --privileged -d --network e2e-network -p 4723:4723 --name appium-container appium/appium
+
+      - name: Get Appium Server IP
+        id: get-appium-ip
+        run: |
+          APPIUM_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' appium-container)
+          echo "APPIUM_IP=$APPIUM_IP" >> $GITHUB_ENV
 
       - name: Verify Appium Server is Running
         run: |
           for i in {1..30}; do
-            if curl -s http://localhost:4723/wd/hub/status | grep -q '"status":0'; then
-              echo "Appium server is ready!"
-              exit 0
-            fi
-            echo "Waiting for Appium server to be ready..."
-            sleep 5
+          if curl -s http://${{ env.APPIUM_IP }}:4723/wd/hub/status | grep -q '"status":0'; then
+           echo "Appium server is ready!"
+           exit 0
+          fi
+          echo "Waiting for Appium server to be ready..."
+          sleep 5
           done
           echo "Appium server did not start in time" && exit 1
 
