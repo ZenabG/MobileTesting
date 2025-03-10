@@ -23,7 +23,16 @@ public class PageOperations {
         this.chooseCategoryPage = new ChooseCategoryPage(this.driver);
     }
 
-    public void skipOffers() {
+    public void skipOffers() throws InterruptedException {
+        homePage.clickGetStartedButton();
+        Thread.sleep(2000);
+        homePage.clickGetStartedButton();
+        Thread.sleep(2000);
+        homePage.clickIncomeButton();
+        Thread.sleep(2000);
+        homePage.clickIncomeButton();
+        Thread.sleep(2000);
+
         offersPage.clickCloseButton();
     }
 
@@ -46,4 +55,5 @@ public class PageOperations {
     public String getIncomeBalance() {
         return homePage.getDisplayWheelIncomeIconText();
     }
+
 }

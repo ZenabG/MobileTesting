@@ -7,6 +7,9 @@ import org.openqa.selenium.support.PageFactory;
 
 public class HomePage {
 
+    @FindBy(id = "com.monefy.app.lite:id/buttonContinue")
+    private WebElement getStartedButton;
+
     @FindBy(id = "com.monefy.app.lite:id/income_button_title")
     private WebElement homeIncomeButton;
 
@@ -21,6 +24,10 @@ public class HomePage {
 
     public HomePage(WebDriver driver) {
         PageFactory.initElements(driver, this);
+    }
+
+    public void clickGetStartedButton() {
+        getStartedButton.click();
     }
 
     public void clickIncomeButton() {
