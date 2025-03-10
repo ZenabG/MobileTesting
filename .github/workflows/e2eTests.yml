@@ -89,13 +89,17 @@ jobs:
             -e APP_PATH="/home/androidusr/monefy.apk" \
             maven:3.9.6-eclipse-temurin-17 mvn clean test
 
-      - name: Check Generated Reports
+      - name: Download Test Report from Appium Server
         run: |
-          docker exec appium-container ls -lah /home/androidusr
+            curl -o report.html http://127.0.0.1:4723/getReport || echo "Failed to download report"
 
-      - name: Copy Test Report to Workspace
+      - name: Verify Report Exists
         run: |
-          docker cp appium-container:/home/androidusr/report.html ${{ github.workspace }}/report.html
+            if [ -f "report.html" ]; then
+               echo "Report downloaded successfully"
+            else
+               echo "Report not found!" && exit 1
+            fi
 
       - name: Upload Test Report
         uses: actions/upload-artifact@v4
