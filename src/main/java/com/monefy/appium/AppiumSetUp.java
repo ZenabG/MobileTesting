@@ -30,6 +30,8 @@ public class AppiumSetUp {
 		options.setCapability(MobileCapabilityType.DEVICE_NAME, System.getenv().get("DEVICE_NAME"));
 		options.setCapability(MobileCapabilityType.UDID, System.getenv().get("UDID"));
 		options.setCapability("app", System.getenv().get("APP_PATH"));
+		options.setCapability("appPackage", AppiumConstants.APP_PACKAGE);
+		options.setCapability("appActivity", AppiumConstants.APP_ACTIVITY);
 		options.setCapability("noReset", "false");
 		options.setCapability("appium:uiautomator2ServerInstallTimeout", 20000);
 		String appiumUrl = getAppiumServerUrl();
