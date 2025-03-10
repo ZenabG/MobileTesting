@@ -52,9 +52,10 @@ jobs:
         run: |
           docker run --privileged -d --network host -p 4723:4723 --device=/dev/${EMULATOR_ID} --name appium-container appium/appium
 
-      - name: Verify Emulator running on Appium Container
+      - name: Print Appium Server Logs
         run: |
-          docker exec appium-container /bin/bash -c "adb devices"  # Verify device connection
+          sleep 10  # Wait for the server to start
+          docker logs appium-container
 
       - name: Run Tests in a Docker Container
         run: |
