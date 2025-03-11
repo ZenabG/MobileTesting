@@ -17,6 +17,8 @@ import java.net.URL;
 import java.time.Duration;
 
 public class AppiumSetUp {
+
+	protected static AndroidDriver driver;
 	protected static WebDriverWait wait;
 	private static AppiumDriverLocalService service;
 	private static final Logger log = LoggerFactory.getLogger(AppiumSetUp.class);
@@ -33,12 +35,10 @@ public class AppiumSetUp {
 		}
 	}
 
-	public static AndroidDriver createAndroidDriver(String appiumUrl) throws MalformedURLException {
+	public static void createAndroidDriver(String appiumUrl) throws MalformedURLException {
 		UiAutomator2Options options = setAppiumCapabiliies();
-        AndroidDriver driver = new AndroidDriver(new URL(appiumUrl), options);
+        driver = new AndroidDriver(new URL(appiumUrl), options);
 		setupDriverTimeouts(driver);
-
-		return driver;
 	}
 
 	protected static String startLocalAppiumServer() {

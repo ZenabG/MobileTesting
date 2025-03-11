@@ -13,44 +13,41 @@ The project is created using Appium with Java and TestNG frameworks. The project
 * **TestNG** : Testing framework used for executing the tests
 * **Maven** : Build automation tool used for managing dependencies and building the project
 * **Git** : Version control system used for managing the project code
-* 
+* **Github Actions** : CI/CD tool used for automating the build and test process
+* **AppiumReporterPlugin** : Custom plugin used for generating test reports
 
-This is a Maven project created using **Appium Framework with Java**.
+## Project structure
 
-The project follows **Page Object Model** mechanism with **Page Factory**. **TestNG framework** is used for executing the tests.
+* **src/main/java/com/monefy** : Consists of 2 packages and 1 class -
 
-## Project hierarchy
-
-* **src/main/java** : Consists of 2 packages -
-
-    1. **base :** It has 2 Java classes defined below
+    1. **appium :** It has 2 Java classes defined below
         * AppiumConstants : Java constants class with app package name, app activity name
-        * AppiumSetUp : Appium setup to set desired capabilities, start the Appium server programmatically and stop the server when the test is completed
+        * AppiumSetUp : Appium setup to set desired capabilities and create android driver, start the Appium server programmatically and stop the server when the test is completed
 
     2. **pages :** It consists of 4 Java classes defined below
+        * HomePage : Page class with locators and methods to interact with the home page of the Monefy app
+        * EnterAmountPage : Page class with locators and methods to interact with the enter amount page of the Monefy app
+        * ChooseCategoryPage : Page class with locators and methods to interact with the choose category page of the Monefy app
+        * OffersPage : Page class with locators and methods to interact with the offers page of the Monefy app
+    3. **PageOperations :** Class with methods to perform custom operations on the Monefy app using page class methods
 
-        * AddTaskPage : Mobile locators and page methods for adding a new task page.
-        * MenuPage : Mobile locators and page methods for hamburger menu page
-        * StatisticsPage : Mobile locators and page methods for statistics of active and completed tasks page.
-        * TaskHomePage : Mobile locators and page methods for home page of the TODO app
+* **src/test/java/com/monefy** : Consists of 2 packages -
 
-* **src/test/java** : Consists of 2 packages -
-
-    1. **e2eTests :** It consists of TestNG classes with the Monefy app UI tests.
+    1. **e2eTests :** It consists of TestNG class with the Monefy app UI tests.
 
         * TestTransaction : TestNG class with methods to test the functionality of the Monefy app.
-            * testAddIncome : Test to add income in the Monefy app
-            * testUpdateBalanceByAddingExpense : Test to update balance by adding an expense in the Monefy app
+            * testAddIncome : Test to validate add income in the Monefy app
+            * testUpdateBalanceByAddingExpense : Test to validate update balance by adding an expense in the Monefy app
 
-    2. **testReport :** It consists of classes for generating test reports.
+    2. **testReport :** It consists of setup for creating and generating custom test reports.
 
-        * ReporterPluginSetUp : Class to set test information and generate reports.
+        * ReporterPluginSetUp : Class to set test information and generate test reports.
 
-* **Appium_server_logs :** This folder has the Appium server logs file generated after each test run
+* **Appium_server_logs :** This folder has the Appium server logs file generated after each local test run.
 
 ## Test reports
-**Maven reports :** Path in the project `/target/surefire-reports/emailable-report.html`
-These reports are generated as part of Maven test run and provide good details of each test execution.
+* Appium Reporter Plugin is used to generate custom test reports.
+  * The reports are generated with the name `report.html`.
 
 ## How to run tests locally
 ### Pre-requisite :

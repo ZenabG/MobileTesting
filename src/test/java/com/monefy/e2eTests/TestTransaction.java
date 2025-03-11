@@ -23,9 +23,6 @@ public class TestTransaction extends AppiumSetUp {
     private PageOperations pageOperations;
     private ReporterPluginSetUp reporterPluginSetUp;
     private static String appiumURL;
-
-    private AndroidDriver driver;
-
     private static final Logger log = LoggerFactory.getLogger(TestTransaction.class);
 
     @BeforeSuite
@@ -35,7 +32,7 @@ public class TestTransaction extends AppiumSetUp {
 
     @BeforeMethod
     public void initialise() throws MalformedURLException {
-        driver = createAndroidDriver(appiumURL);
+        createAndroidDriver(appiumURL);
         reporterPluginSetUp = new ReporterPluginSetUp();
         pageOperations = new PageOperations(driver, wait);
     }
