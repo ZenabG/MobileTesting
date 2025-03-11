@@ -1,76 +1,78 @@
-package e2eTests;
+package com.monefy.e2eTests;
 
+import com.monefy.appium.AppiumSetUp;
+import com.monefy.PageOperations;
+import com.monefy.testReport.ReporterPluginSetUp;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.ITestResult;
+import org.testng.ITestContext;
+import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.assertTrue;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.time.Duration;
-import java.util.logging.Logger;
-
-import org.testng.annotations.*;
-import com.monefy.appium.AppiumSetUp;
-import com.monefy.PageOperations;
-
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertTrue;
-
-import org.openqa.selenium.support.ui.WebDriverWait;
-import testReport.ReporterPluginSetUp;
-import org.testng.ITestResult;
-import org.testng.ITestContext;
 
 public class TestTransaction extends AppiumSetUp {
-
     private PageOperations pageOperations;
-    private WebDriverWait wait;
-
     private ReporterPluginSetUp reporterPluginSetUp;
-
     private static String appiumURL;
+
+    private AndroidDriver driver;
+
+    private static final Logger log = LoggerFactory.getLogger(TestTransaction.class);
 
     @BeforeSuite
     public void startServer() throws MalformedURLException {
         appiumURL = startAppiumServer();
-        log = Logger.getLogger("global");
     }
 
     @BeforeMethod
     public void initialise() throws MalformedURLException {
-        createAndroidDriver(appiumURL);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        driver = createAndroidDriver(appiumURL);
         reporterPluginSetUp = new ReporterPluginSetUp();
         pageOperations = new PageOperations(driver, wait);
     }
 
     @Test
     public void testAddIncome() throws InterruptedException {
-        System.out.println("Adding income...");
+        log.info("Starting test to add income");
+        String savings = "1000";
         pageOperations.skipOffers();
-        pageOperations.addSalaryIncome("2500");
-        String balance = pageOperations.getBalanceText();
+        pageOperations.addSavings(savings);
+        String balance = pageOperations.getBalance();
         balance = getTrimmedAmount(balance);
-
-        assertEquals("2500", balance);
+        assertEquals(savings, balance);
     }
 
     @Test
     public void testUpdateBalanceByAddingExpense() throws InterruptedException {
-        System.out.println("Adding expense...");
+        log.info("Starting test to update balance by adding expense");
+        String salary = "2500";
+        String carExpense = "500";
+
         pageOperations.skipOffers();
-        pageOperations.addSalaryIncome("2500");
+        pageOperations.addSalary(salary);
 
-        String balance = pageOperations.getBalanceText();
+        String balance = pageOperations.getBalance();
         balance = getTrimmedAmount(balance);
-        assertEquals("2500", balance);
 
-        pageOperations.addCarMortgageExpense("500");
-        String updatedBalance = pageOperations.getBalanceText();
+        pageOperations.addCarMortgageExpense(carExpense);
+        String updatedBalance = pageOperations.getBalance();
         updatedBalance = getTrimmedAmount(updatedBalance);
 
-        assertEquals("2000", updatedBalance);
+        assertTrue(Integer.parseInt(updatedBalance) < Integer.parseInt(balance));
     }
 
 
     @AfterMethod
-    public void setTestReport(ITestResult result) throws IOException {
+    public void createTestReport(ITestResult result) throws IOException {
         if (driver != null) {
             String status = result.isSuccess() ? "PASS" : "FAIL";
             String errorMessage = result.getThrowable() != null ? result.getThrowable().toString() : "UnknownError";

@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class TransactionEntryPage {
+public class EnterAmountPage {
 
     @FindBy(id = "com.monefy.app.lite:id/buttonKeyboard1")
     private WebElement buttonKeyboard1;
@@ -43,7 +43,7 @@ public class TransactionEntryPage {
     @FindBy(id = "com.monefy.app.lite:id/keyboard_action_button")
     private WebElement chooseCategoryButton;
 
-    public TransactionEntryPage(WebDriver driver) {
+    public EnterAmountPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
     }
 

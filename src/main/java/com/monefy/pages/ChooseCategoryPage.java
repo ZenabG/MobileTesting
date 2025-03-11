@@ -8,23 +8,24 @@ import org.openqa.selenium.support.PageFactory;
 public class ChooseCategoryPage {
 
     // income categories
-    @FindBy(id = "//android.widget.ImageView[@resource-id='com.monefy.app.lite:id/imageView'][1]")
+    @FindBy(id = "//android.widget.TextView[@resource-id='com.monefy.app.lite:id/textCategoryName' and @text='Deposit']")
     private WebElement depositCategory;
 
     @FindBy(xpath = "//android.widget.TextView[@resource-id='com.monefy.app.lite:id/textCategoryName' and @text='Salary']")
     private WebElement salaryCategory;
 
-    @FindBy(xpath = "//android.widget.ImageView[@resource-id='com.monefy.app.lite:id/imageView'][3]")
+    @FindBy(xpath = "//android.widget.TextView[@resource-id='com.monefy.app.lite:id/textCategoryName' and @text='Savings']")
     private WebElement savingsCategory;
 
+
     // expense categories
-    @FindBy(xpath = "//android.widget.GridView[@resource-id=\"com.monefy.app.lite:id/gridViewCategories\"]/android.widget.FrameLayout[1]/android.widget.LinearLayout\n")
+    @FindBy(xpath = "//android.widget.TextView[@resource-id='com.monefy.app.lite:id/gridViewCategories' and @text='Bills']")
     private WebElement billsCategory;
 
-    @FindBy(xpath = "//android.widget.GridView[@resource-id=\"com.monefy.app.lite:id/gridViewCategories\"]/android.widget.FrameLayout[2]/android.widget.LinearLayout\n")
+    @FindBy(xpath = "//android.widget.TextView[@resource-id='com.monefy.app.lite:id/gridViewCategories' and @text='Cars']")
     private WebElement carsCategory;
 
-    @FindBy(xpath = "//android.widget.GridView[@resource-id=\"com.monefy.app.lite:id/gridViewCategories\"]/android.widget.FrameLayout[3]/android.widget.LinearLayout\n")
+    @FindBy(xpath = "//android.widget.TextView[@resource-id='com.monefy.app.lite:id/gridViewCategories' and @text='Clothes']")
     private WebElement clothesCategory;
 
     public ChooseCategoryPage(WebDriver driver) {

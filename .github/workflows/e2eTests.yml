@@ -17,7 +17,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Start Android Emulator in Docker
+      - name: Start Android 11 Emulator in Docker
         run: |
           docker run -d --network host -p 6080:6080 -e EMULATOR_DEVICE="Samsung Galaxy S10" -e WEB_VNC=true --device /dev/kvm --name android-container budtmo/docker-android:emulator_11.0
 
@@ -48,7 +48,7 @@ jobs:
           EMULATOR_ID=$(docker exec android-container adb devices | grep emulator | cut -f1)
           echo "EMULATOR_ID=$EMULATOR_ID" >> $GITHUB_ENV
 
-      - name: Create Dockerfile for Custom Appium Image
+      - name: Create Dockerfile for Appium Image with Reporter Plugin
         run: |
           cat <<EOF > Dockerfile
           FROM appium/appium:latest
@@ -59,18 +59,18 @@ jobs:
 
       - name: Build Custom Appium Docker Image
         run: |
-          docker build -t custom-appium .
+          docker build -t appium-reporter .
 
-      - name: Start Appium Container with Plugin
+      - name: Start Appium Container with Reporter Plugin
         run: |
-          docker run --privileged -d --network host -p 4723:4723 --name appium-container custom-appium
+          docker run --privileged -d --network host -p 4723:4723 --name appium-container appium-reporter
 
       - name: Print Appium Server Logs
         run: |
-          sleep 10  # Wait for the server to start
+          sleep 5  # Wait for the server to start
           docker logs appium-container
 
-      - name: Push monefy apk file into container
+      - name: Push monefy apk file into appium container
         run: |
           docker cp 'com.monefy.app.lite_1.18.0-2208_minAPI21(nodpi)_apkmirror.com.apk' appium-container:/home/androidusr/monefy.apk
 

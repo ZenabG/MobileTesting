@@ -1,11 +1,16 @@
-package testReport;
+package com.monefy.testReport;
+
+import com.monefy.PageOperations;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.UUID;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ReporterPluginSetUp {
+
+    private static final Logger log = LoggerFactory.getLogger(ReporterPluginSetUp.class);
 
     public void setTestInfo(String appiumUrl, String sessionId, String testName, String testStatus, String error) {
         try {
@@ -25,9 +30,9 @@ public class ReporterPluginSetUp {
                 os.write(input, 0, input.length);
             }
             int responseCode = connection.getResponseCode();
-            System.out.println("Set Info Response Code: " + responseCode);
+            log.info("Set Info Response Code: " + responseCode);
         } catch (Exception e) {
-            System.out.println("Failed to set Test info");
+            log.info("Failed to set Test info");
         }
     }
 
@@ -38,7 +43,7 @@ public class ReporterPluginSetUp {
         connection.setRequestMethod("GET");
 
         int responseCode = connection.getResponseCode();
-        System.out.println("Response Code: " + responseCode);
+        log.info("Response Code: " + responseCode);
 
         if (responseCode == HttpURLConnection.HTTP_OK) {
             try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
