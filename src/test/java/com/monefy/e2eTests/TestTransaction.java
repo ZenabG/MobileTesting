@@ -3,6 +3,7 @@ package com.monefy.e2eTests;
 import com.monefy.appium.AppiumSetUp;
 import com.monefy.PageOperations;
 import com.monefy.testReport.ReporterPluginSetUp;
+import io.appium.java_client.android.AndroidDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
@@ -29,7 +30,7 @@ public class TestTransaction extends AppiumSetUp {
 
     @BeforeSuite
     public void startServer() throws MalformedURLException {
-        appiumURL = startAppiumServer();
+        appiumURL = startAppium();
     }
 
     @BeforeMethod
