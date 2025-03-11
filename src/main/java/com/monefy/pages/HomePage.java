@@ -37,8 +37,7 @@ public class HomePage {
                 button.click();
             }
         } catch (RuntimeException e) {
-            // Handle the case where the button is not present
-            System.out.println("Get Started button is not present.");
+            System.out.println("Get Started widget not found");
         }
     }
 

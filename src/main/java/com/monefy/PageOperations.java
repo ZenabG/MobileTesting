@@ -17,7 +17,7 @@ public class PageOperations {
 
     public PageOperations(AndroidDriver driver, WebDriverWait wait) {
         this.driver = driver;
-        this.offersPage = new OffersPage(this.driver);
+        this.offersPage = new OffersPage(this.driver, wait);
         this.homePage = new HomePage(this.driver, wait);
         this.transactionEntryPage = new TransactionEntryPage(this.driver);
         this.chooseCategoryPage = new ChooseCategoryPage(this.driver);
