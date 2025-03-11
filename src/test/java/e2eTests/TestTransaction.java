@@ -64,22 +64,23 @@ public class TestTransaction extends AppiumSetUp {
         assertEquals("2000", actualIncomeBalance);
     }
 
-    @AfterMethod
-    public void tearDown(ITestResult result) throws IOException {
-        if (result.getStatus() == ITestResult.FAILURE) {
-            reporterPluginSetUp.setTestInfo(getAppiumServerUrl(), driver.getSessionId().toString(), result.getMethod().getMethodName(), "FAIL", result.getThrowable().getMessage());
-        } else {
-            reporterPluginSetUp.setTestInfo(getAppiumServerUrl(), driver.getSessionId().toString(), result.getMethod().getMethodName(), "PASS", null);
-        }
-    }
-
 
     @AfterSuite
     public void stopAppiumServer(ITestContext context) throws IOException {
-        String report = reporterPluginSetUp.getReport(getAppiumServerUrl());
+        if (driver != null) {
+            for (ITestResult result : context.getPassedTests().getAllResults()) {
+                reporterPluginSetUp.setTestInfo(appiumUrl, driver.getSessionId().toString(), result.getMethod().getMethodName(), "PASS", null);
+            }
+            for (ITestResult result : context.getFailedTests().getAllResults()) {
+                reporterPluginSetUp.setTestInfo(appiumUrl, driver.getSessionId().toString(), result.getMethod().getMethodName(), "FAIL", result.getThrowable().getMessage());
+            }
+            for (ITestResult result : context.getSkippedTests().getAllResults()) {
+                reporterPluginSetUp.setTestInfo(appiumUrl, driver.getSessionId().toString(), result.getMethod().getMethodName(), "SKIP", null);
+            }
+            driver.quit();
+        }
+        String report = reporterPluginSetUp.getReport(appiumUrl);
         reporterPluginSetUp.createReportFile(report, "report");
-
-        driver.quit();
         killAppiumServer();
     }
 
