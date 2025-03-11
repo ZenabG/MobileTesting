@@ -74,4 +74,5 @@ The project is created using Appium with Java and TestNG frameworks. The project
 * The project is integrated with Github Actions for CI/CD.
 * The workflow file is present in the `.github/workflows` directory.
 * The workflow file is configured to run the tests on every push and pull request to the `master` branch.
-* The workflow file is configured to run the tests on an Android emulator 
+* The workflow file is configured to run the tests on an Android emulator docker container
+* The workflow file is configured to generate the custom test reports and upload them as artifacts.
