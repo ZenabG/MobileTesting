@@ -32,6 +32,10 @@ public class TestTransaction extends AppiumSetUp {
         log = Logger.getLogger("global");
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         reporterPluginSetUp = new ReporterPluginSetUp();
+    }
+
+    @BeforeMethod
+    public void initialise() throws InterruptedException {
         pageOperations = new PageOperations(driver, wait);
     }
 
