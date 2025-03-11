@@ -45,7 +45,7 @@ public class TestTransaction extends AppiumSetUp {
         pageOperations.addSalaryIncome("2500");
 //        pageOperations.addCarMortgageExpense("500");
         Thread.sleep(4000);
-        String actualIncomeBalance = pageOperations.getBalance();
+        String actualIncomeBalance = pageOperations.getBalanceText();
         System.out.println("Actual Income Balance: " + actualIncomeBalance);
 
         // Remove currency symbol, commas, and decimal point

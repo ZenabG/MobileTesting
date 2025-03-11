@@ -19,8 +19,8 @@ public class HomePage {
     @FindBy(id = "com.monefy.app.lite:id/expense_button")
     private WebElement homeExpenseButton;
 
-    @FindBy(id = "com.monefy.app.lite:id/balance_container")
-    private WebElement homeBalanceButton;
+    @FindBy(id = "com.monefy.app.lite:id/balance_amount")
+    private WebElement homeBalanceIcon;
 
     @FindBy(xpath = " //android.widget.TextView[@resource-id=\"com.monefy.app.lite:id/income_amount_text\"]")
     private WebElement homeDisplayWheelIncomeIcon;
@@ -50,7 +50,7 @@ public class HomePage {
         homeExpenseButton.click();
     }
 
-    public String getBalanceButton() { return homeBalanceButton.getText();
+    public String getBalanceText() { return homeBalanceIcon.getText();
     }
 
     public String getDisplayWheelIncomeIconText() {

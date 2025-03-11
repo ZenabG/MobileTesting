@@ -52,8 +52,8 @@ public class PageOperations {
         chooseCategoryPage.clickCarsCategory();
     }
 
-    public String getIncomeBalance() {
-        return homePage.getDisplayWheelIncomeIconText();
+    public String getBalanceText() {
+        return homePage.getBalanceText();
     }
 
 }
