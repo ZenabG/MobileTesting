@@ -26,7 +26,7 @@ public class AppiumSetUp {
 	private static final Dotenv dotenv = Dotenv.load();
 
 	public static String startAppium() {
-		String ciEnv = dotenv.get("CI");
+		String ciEnv = System.getenv().get("CI");
 
 		if (ciEnv.equalsIgnoreCase("true")) {
 			log.info("Using Appium server in Docker (CI/CD mode).");
@@ -46,7 +46,7 @@ public class AppiumSetUp {
 	protected static String startLocalAppiumServer() {
 		// Start Appium server locally
 		AppiumServiceBuilder builder = new AppiumServiceBuilder();
-		builder.withIPAddress("127.0.0.1").usingAnyFreePort().withAppiumJS(new File(dotenv.get("APPIUM_JS_PATH"))).usingDriverExecutable(new File(dotenv.get("NODE_JS_EXE_PATH"))).withArgument(BASEPATH, "/wd/hub").withArgument(GeneralServerFlag.SESSION_OVERRIDE).withArgument(GeneralServerFlag.LOG_LEVEL, "debug").withArgument(() -> "--use-plugins", "appium-reporter-plugin").withLogFile(new File(System.getProperty("user.dir") + "/Appium_Server_Logs/appium_server_logs"));
+		builder.withIPAddress("127.0.0.1").usingAnyFreePort().withAppiumJS(new File(System.getenv().get("APPIUM_JS_PATH"))).usingDriverExecutable(new File(System.getenv().get("NODE_JS_EXE_PATH"))).withArgument(BASEPATH, "/wd/hub").withArgument(GeneralServerFlag.SESSION_OVERRIDE).withArgument(GeneralServerFlag.LOG_LEVEL, "debug").withArgument(() -> "--use-plugins", "appium-reporter-plugin").withLogFile(new File(System.getProperty("user.dir") + "/Appium_Server_Logs/appium_server_logs"));
 
 		service = AppiumDriverLocalService.buildService(builder);
 		service.start();
@@ -72,11 +72,11 @@ public class AppiumSetUp {
 	private static UiAutomator2Options setAppiumCapabiliies() {
 		UiAutomator2Options options = new UiAutomator2Options();
 		// Set Appium desired capabilities
-		options.setCapability(MobileCapabilityType.PLATFORM_NAME, dotenv.get("PLATFORM_NAME"));
-		options.setCapability(MobileCapabilityType.PLATFORM_VERSION, dotenv.get("PLATFORM_VERSION"));
-		options.setCapability(MobileCapabilityType.DEVICE_NAME, dotenv.get("DEVICE_NAME"));
-		options.setCapability(MobileCapabilityType.UDID, dotenv.get("UDID"));
-		options.setCapability("app", dotenv.get("APP_PATH"));
+		options.setCapability(MobileCapabilityType.PLATFORM_NAME, System.getenv().get("PLATFORM_NAME"));
+		options.setCapability(MobileCapabilityType.PLATFORM_VERSION, System.getenv().get("PLATFORM_VERSION"));
+		options.setCapability(MobileCapabilityType.DEVICE_NAME, System.getenv().get("DEVICE_NAME"));
+		options.setCapability(MobileCapabilityType.UDID, System.getenv().get("UDID"));
+		options.setCapability("app", System.getenv().get("APP_PATH"));
 		options.setCapability("appPackage", AppiumConstants.MONEFY_APP_PACKAGE);
 		options.setCapability("appActivity", AppiumConstants.MONEFY_APP_ACTIVITY);
 		options.setCapability("noReset", "false");
