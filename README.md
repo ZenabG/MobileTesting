@@ -47,13 +47,14 @@ The project is created using Appium with Java and TestNG frameworks. The project
 
 ## Test reports
 * Appium Reporter Plugin is used to generate custom test reports.
-  * The reports are generated with the name `report.html`.
+  * The reports are generated at the root with name `report.html`.
 
 ## How to run tests locally
 ### Pre-requisite :
 * Node.js installed and set in *Path* environment variable (Version 23.9.0 was used with this project)
 * Appium installed using npm (`npm install -g appium`) (Version 1.22.1 was used with this project)
-* Android SDK installed and ANDROID_HOME set in environment variable (Windows) or bash profile (macOS)
+* Appium Reporter Plugin installed using `appium plugin install --source=npm appium-reporter-plugin`
+* Android SDK installed. ANDROID_HOME and ANDROID_SDK_ROOT set in environment variable 
 * An IDE (Eclipse or IntelliJ IDEA)
 * Java 17 installed and JAVA_HOME set in environment variable
 * Maven 3.9.9 installed and MAVEN_HOME set in environment variable
@@ -61,34 +62,13 @@ The project is created using Appium with Java and TestNG frameworks. The project
 
 ### Steps to download the project in IDE:
 1. Open command prompt and go to the path where the project is to be downloaded
-2. Run `git clone <url>`. Get the URL from the project path https://github.com/ZenabG/ZooplusMobile/tree/master.
+2. Run `git clone <url>`. Get the URL from the project path 
 3. Open IDE and go to File > Open and choose the git cloned project.
 
-### Steps to run the tests using TestNG:
-1. Verify if the project is visible in the project panel.
-2. Add TestNG to the IDE. If the project is in Eclipse, go to Help > Eclipse Marketplace > enter TestNG in search.
-3. Go to `src/test/java/e2eTests/TestTransaction.java`
-4. Right click and run as TestNG test. (Appium server is started programmatically through the Java code)
-5. After test run the reports are generated in folder *test-output*
-
-### Steps to run the project using Maven:
-1. Right click on the project, Run as > Maven clean
-2. After step 1 is successful, right click on the project, Run as > Maven test (Appium server is started programmatically through the Java code)
-3. After test run the reports are generated on the path `target/surefire-reports/emailable-report.html`
-
-### Setting up environment variables
-To manage Appium desired capabilities and environment variables, create a `.env` file in the root directory of the project. You can use the `.env.template` file as a reference. Copy the `.env.template` file to `.env` and fill in the actual values.
-
-#### Example of `.env.template`:
-```dotenv
-# .env.template
-
-PLATFORM_NAME=your_platform_name
-PLATFORM_VERSION=your_platform_version
-DEVICE_NAME=your_device_name
-NODE_JS_EXE_PATH=your_node_js_exe_path
-APPIUM_JS_PATH=your_appium_js_path
-```
+### Steps to run the tests locally using Maven:
+1. Make a copy of `.env.template` file and rename it to `.env` in the root directory of the project. Fill in the actual values for the environment variables.
+2. Run the command `mvn clean test` in the root directory of the project to run the tests.
+3. The test results are displayed in the console and the custom test reports are generated in the root directory with name `report.html`.
 
 ## How to run tests using CI/CD
 Download and install Jenkins war file from https://www.jenkins.io/

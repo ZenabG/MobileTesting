@@ -20,6 +20,7 @@ import java.net.MalformedURLException;
 import java.time.Duration;
 
 public class TestTransaction extends AppiumSetUp {
+    private AndroidDriver driver;
     private PageOperations pageOperations;
     private ReporterPluginSetUp reporterPluginSetUp;
     private static String appiumURL;
@@ -32,7 +33,7 @@ public class TestTransaction extends AppiumSetUp {
 
     @BeforeMethod
     public void initialise() throws MalformedURLException {
-        createAndroidDriver(appiumURL);
+        driver = createAndroidDriver(appiumURL);
         reporterPluginSetUp = new ReporterPluginSetUp();
         pageOperations = new PageOperations(driver, wait);
     }
@@ -41,6 +42,7 @@ public class TestTransaction extends AppiumSetUp {
     public void testAddIncome() throws InterruptedException {
         log.info("Starting test to add income");
         String savings = "1000";
+        pageOperations.getStartedWidget();
         pageOperations.skipOffers();
         pageOperations.addSavings(savings);
         String balance = pageOperations.getBalance();
@@ -53,6 +55,8 @@ public class TestTransaction extends AppiumSetUp {
         log.info("Starting test to update balance by adding expense");
         String salary = "2500";
         String carExpense = "500";
+
+        pageOperations.getStartedWidget();
 
         pageOperations.skipOffers();
         pageOperations.addSalary(salary);

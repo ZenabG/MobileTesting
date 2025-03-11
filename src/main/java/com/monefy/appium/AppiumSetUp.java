@@ -24,7 +24,7 @@ public class AppiumSetUp {
 	private static final Logger log = LoggerFactory.getLogger(AppiumSetUp.class);
 
 	public static String startAppium() {
-		String ciEnv = System.getenv().get("CI");
+		String ciEnv = dotenv.get("CI");
 
 		if (ciEnv.equalsIgnoreCase("true")) {
 			log.info("Using Appium server in Docker (CI/CD mode).");
@@ -35,16 +35,18 @@ public class AppiumSetUp {
 		}
 	}
 
-	public static void createAndroidDriver(String appiumUrl) throws MalformedURLException {
+	public static AndroidDriver createAndroidDriver(String appiumUrl) throws MalformedURLException {
 		UiAutomator2Options options = setAppiumCapabiliies();
-        driver = new AndroidDriver(new URL(appiumUrl), options);
+        AndroidDriver driver = new AndroidDriver(new URL(appiumUrl), options);
 		setupDriverTimeouts(driver);
+
+		return driver;
 	}
 
 	protected static String startLocalAppiumServer() {
 		// Start Appium server locally
 		AppiumServiceBuilder builder = new AppiumServiceBuilder();
-		builder.withIPAddress("127.0.0.1").usingAnyFreePort().withAppiumJS(new File(System.getenv().get("APPIUM_JS_PATH"))).usingDriverExecutable(new File(System.getenv().get("NODE_JS_EXE_PATH"))).withArgument(BASEPATH, "/wd/hub").withArgument(GeneralServerFlag.SESSION_OVERRIDE).withArgument(GeneralServerFlag.LOG_LEVEL, "debug").withArgument(() -> "--use-plugins", "appium-reporter-plugin").withLogFile(new File(System.getProperty("user.dir") + "/Appium_Server_Logs/appium_server_logs"));
+		builder.withIPAddress("127.0.0.1").usingAnyFreePort().withAppiumJS(new File(dotenv.get("APPIUM_JS_PATH"))).usingDriverExecutable(new File(dotenv.get("NODE_JS_EXE_PATH"))).withArgument(BASEPATH, "/wd/hub").withArgument(GeneralServerFlag.SESSION_OVERRIDE).withArgument(GeneralServerFlag.LOG_LEVEL, "debug").withArgument(() -> "--use-plugins", "appium-reporter-plugin").withLogFile(new File(System.getProperty("user.dir") + "/Appium_Server_Logs/appium_server_logs"));
 
 		service = AppiumDriverLocalService.buildService(builder);
 		service.start();

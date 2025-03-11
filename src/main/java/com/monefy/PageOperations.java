@@ -31,7 +31,7 @@ public class PageOperations {
         offersPage.clickCloseButton();
     }
 
-    public void getStartedWidget() {
+    public void getStartedWidget() throws InterruptedException {
         // Widget has to be clicked 4 times to get started
         for (int i = 0; i < 4; i++) {
             homePage.clickGetStartedButton();
