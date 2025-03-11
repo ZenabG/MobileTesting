@@ -20,7 +20,6 @@ import java.net.MalformedURLException;
 import java.time.Duration;
 
 public class TestTransaction extends AppiumSetUp {
-    private AndroidDriver driver;
     private PageOperations pageOperations;
     private ReporterPluginSetUp reporterPluginSetUp;
     private static String appiumURL;
@@ -33,7 +32,7 @@ public class TestTransaction extends AppiumSetUp {
 
     @BeforeMethod
     public void initialise() throws MalformedURLException {
-        driver = createAndroidDriver(appiumURL);
+        createAndroidDriver(appiumURL);
         reporterPluginSetUp = new ReporterPluginSetUp();
         pageOperations = new PageOperations(driver, wait);
     }
