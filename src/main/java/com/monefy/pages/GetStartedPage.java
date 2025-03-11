@@ -26,7 +26,7 @@ public class GetStartedPage {
                 button.click();
             }
         } catch (RuntimeException e) {
-            System.out.println("Get Started widget not found");
+            System.out.println("Exception: Get Started widget not found");
         }
     }
 }
