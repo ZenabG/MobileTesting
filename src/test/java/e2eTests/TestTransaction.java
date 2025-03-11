@@ -54,7 +54,7 @@ public class TestTransaction extends AppiumSetUp {
     }
 
     @Test
-    public void testUpdateBalanceByAddingExpense() throws MalformedURLException, InterruptedException {
+    public void testUpdateBalanceByAddingExpense() throws InterruptedException {
         System.out.println("Adding expense...");
         pageOperations.skipOffers();
         pageOperations.addCarMortgageExpense("500");
@@ -75,6 +75,8 @@ public class TestTransaction extends AppiumSetUp {
                 reporterPluginSetUp.setTestInfo(getAppiumServerUrl(), driver.getSessionId().toString(), result.getMethod().getMethodName(), "PASS", null);
             }
             for (ITestResult result : context.getFailedTests().getAllResults()) {
+                System.out.println("Failed Test: " + result.getMethod().getMethodName() +
+                        " - Exception: " + result.getThrowable());
                 reporterPluginSetUp.setTestInfo(getAppiumServerUrl(), driver.getSessionId().toString(), result.getMethod().getMethodName(), "FAIL", result.getThrowable().getMessage());
             }
             for (ITestResult result : context.getSkippedTests().getAllResults()) {
