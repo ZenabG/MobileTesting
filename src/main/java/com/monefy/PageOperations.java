@@ -30,12 +30,11 @@ public class PageOperations {
     }
 
     public void getStartedWidget() throws InterruptedException {
-        System.out.println("Clicking 'Get Started' widget 4 times...");
+        System.out.println("Navigating 'Get Started' widget ...");
         for (int i = 0; i < 4; i++) {
-            System.out.println("Clicking 'Get Started' widget: " + (i + 1));
+            System.out.println("Clicking page: " + (i + 1));
             homePage.clickGetStartedButton();
         }
-        System.out.println("'Get Started' widget clicked 4 times.");
     }
 
     public void addSalary(String amount) {

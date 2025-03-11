@@ -12,11 +12,12 @@ The tests are containerized using *Docker* in GitHub Actions to ensure a consist
 
 * **Appium** : Open-source test automation tool for mobile applications
 * **Java** : Programming language used for writing the test scripts
+* **Docker** : Used within GitHub Actions to run tests in a consistent and isolated environment
+* **AppiumReporterPlugin** : Custom plugin used for generating test reports
+* **Github Actions** : CI/CD tool used for automating the build and test process
 * **TestNG** : Testing framework used for executing the tests
 * **Maven** : Build automation tool used for managing dependencies and building the project
 * **Git** : Version control system used for managing the project code
-* **Github Actions** : CI/CD tool used for automating the build and test process
-* **AppiumReporterPlugin** : Custom plugin used for generating test reports
 
 ## Project structure
 
@@ -76,8 +77,27 @@ The tests are containerized using *Docker* in GitHub Actions to ensure a consist
 3. The test results are displayed in the console and the custom test reports are generated in the root directory with name `report.html`.
 
 ## How to run tests using CI/CD
-* The project is integrated with Github Actions for CI/CD.
-* The workflow file is present in the `.github/workflows` directory.
+* The project is integrated with **Github Actions** for CI/CD.
+* The workflow file is present in the `.github/workflows` directory and is named `e2eTests.yml`.
 * The workflow file is configured to run the tests on every push and pull request to the `master` branch.
-* The workflow file is configured to run the tests on an Android emulator docker container
-* The workflow file is configured to generate the custom test reports and upload them as artifacts.
+* The workflow file is configured to generate the custom test reports and **upload them as artifacts**.
+
+### Steps in the workflow
+1. **name**: The name of the workflow.
+2. **on**: Specifies the events that trigger the workflow. In this case, it is triggered on push and pull request events to the `master` branch.
+3. **jobs**: Defines the jobs that will run as part of the workflow.
+4. **build**: The name of the job.
+5. **runs-on**: Specifies the type of runner to use. In this case, it uses `ubuntu-latest`.
+6. **steps**: The steps to be executed in the job.
+    - **Checkout repository**: Uses the `actions/checkout@v3` action to check out the repository code.
+    - **Start Android 11 Emulator in Docker**: Runs a Docker container with an Android 11 emulator.
+    - **Verify Emulator is Fully Booted**: Checks if the emulator is fully booted.
+    - **Check Emulator Status**: Verifies that the emulator is running using `adb devices`.
+    - **Get Emulator Device ID**: Retrieves the device ID of the emulator.
+    - **Create Dockerfile for Appium Image with Reporter Plugin**: Creates a Dockerfile for a custom Appium image with the reporter plugin.
+    - **Build Custom Appium Docker Image**: Builds the custom Appium Docker image.
+    - **Start Appium Container with Reporter Plugin**: Starts the Appium container with the reporter plugin.
+    - **Print Appium Server Logs**: Prints the Appium server logs.
+    - **Push monefy apk file into appium container**: Copies the Monefy APK file from project path into the Appium container.
+    - **Run Tests in a Docker Container**: Runs the tests in a Docker container.
+    - **Upload Test Report**: Uploads the test report as an artifact.

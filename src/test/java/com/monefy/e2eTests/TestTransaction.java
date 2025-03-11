@@ -55,7 +55,7 @@ public class TestTransaction extends AppiumSetUp {
      */
     @Test
     public void testAddIncome() throws InterruptedException {
-        System.out.println("Starting test to add income");
+        System.out.println("[Test 2] - Starting test to add income");
         String savings = "1000";
         pageOperations.getStartedWidget();
         pageOperations.skipOffers();
@@ -72,7 +72,7 @@ public class TestTransaction extends AppiumSetUp {
      */
     @Test
     public void testUpdateBalanceByAddingExpense() throws InterruptedException {
-        System.out.println("Starting test to update balance by adding expense");
+        System.out.println("\n\n[Test 2] - Starting test to update balance by adding expense");
         String salary = "2500";
         String carExpense = "500";
 
