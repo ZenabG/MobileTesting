@@ -50,7 +50,7 @@ public class TestTransaction extends AppiumSetUp {
 
         actualIncomeBalance = getTrimmedAmount(actualIncomeBalance);
 
-        assertEquals("2500", actualIncomeBalance);
+        assertEquals("25000", actualIncomeBalance);
     }
 
     @Test
