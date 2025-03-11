@@ -45,21 +45,27 @@ public class TestTransaction extends AppiumSetUp {
         System.out.println("Adding income...");
         pageOperations.skipOffers();
         pageOperations.addSalaryIncome("2500");
-        String actualIncomeBalance = pageOperations.getBalanceText();
-        actualIncomeBalance = getTrimmedAmount(actualIncomeBalance);
+        String balance = pageOperations.getBalanceText();
+        balance = getTrimmedAmount(balance);
 
-        assertEquals("25000", actualIncomeBalance);
+        assertEquals("2500", balance);
     }
 
     @Test
     public void testUpdateBalanceByAddingExpense() throws InterruptedException {
         System.out.println("Adding expense...");
         pageOperations.skipOffers();
-        pageOperations.addCarMortgageExpense("500");
-        String actualIncomeBalance = pageOperations.getBalanceText();
-        actualIncomeBalance = getTrimmedAmount(actualIncomeBalance);
+        pageOperations.addSalaryIncome("2500");
 
-        assertEquals("2000", actualIncomeBalance);
+        String balance = pageOperations.getBalanceText();
+        balance = getTrimmedAmount(balance);
+        assertEquals("2500", balance);
+
+        pageOperations.addCarMortgageExpense("500");
+        String updatedBalance = pageOperations.getBalanceText();
+        updatedBalance = getTrimmedAmount(updatedBalance);
+
+        assertEquals("2000", updatedBalance);
     }
 
 
