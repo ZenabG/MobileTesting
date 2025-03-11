@@ -27,13 +27,13 @@ public class PageOperations {
     }
 
     public void skipOffers() throws InterruptedException {
-        System.out.println("Skipping offers...");
+        System.out.println("<-- Skipping offers...-->");
         offersPage.clickCloseButton();
         System.out.println("Offers skipped.");
     }
 
     public void getStartedWidget() throws InterruptedException {
-        System.out.println("Navigating 'Get Started' widget ...");
+        System.out.println("<-- Navigating 'Get Started' widget ...-->");
         for (int i = 0; i < 4; i++) {
             getStartedPage.clickGetStartedButton();
             System.out.println("Clicked page: " + (i + 1));
@@ -41,7 +41,7 @@ public class PageOperations {
     }
 
     public void addSalary(String amount) {
-        System.out.println("Adding salary: " + amount);
+        System.out.println("<-- Adding salary: -->" + amount);
         homePage.clickIncomeButton();
         System.out.println("Clicked income button.");
         enterAmountPage.addAmount(amount);
@@ -53,7 +53,7 @@ public class PageOperations {
     }
 
     public void addSavings(String amount) {
-        System.out.println("Adding savings: " + amount);
+        System.out.println("<-- Adding savings: -->" + amount);
         homePage.clickIncomeButton();
         System.out.println("Clicked income button.");
         enterAmountPage.addAmount(amount);
@@ -65,7 +65,7 @@ public class PageOperations {
     }
 
     public void addCarMortgageExpense(String amount) {
-        System.out.println("Adding car mortgage expense: " + amount);
+        System.out.println("<-- Adding car mortgage expense: -->" + amount);
         homePage.clickExpenseButton();
         System.out.println("Clicked expense button.");
         enterAmountPage.addAmount(amount);
@@ -77,7 +77,7 @@ public class PageOperations {
     }
 
     public String getBalance() {
-        System.out.println("Retrieving balance...");
+        System.out.println("<-- Retrieving balance...-->");
         String balance = homePage.getBalance();
         System.out.println("Balance retrieved: " + balance);
         return balance;
