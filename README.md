@@ -6,7 +6,7 @@ This is a mobile automation project for the Monefy app. The Monefy app is a pers
 
 The project is created using Appium with Java and TestNG frameworks. The project is designed to test the functionality of the Monefy app on Android devices.
 
-The tests are containerized using \*Docker\* in GitHub Actions to ensure a consistent and isolated environment for test execution.
+The tests are containerized using *Docker* in GitHub Actions to ensure a consistent and isolated environment for test execution.
 
 ## Tools and technologies used
 
@@ -58,8 +58,8 @@ The tests are containerized using \*Docker\* in GitHub Actions to ensure a consi
 
 ## How to run tests locally
 ### Pre-requisite :
-* Node.js installed and set in \*Path\* environment variable (Version 23.9.0 was used with this project)
-* Appium installed using npm (\`npm install -g appium\`) (Version 2.16.2 was used with this project)
+* Node.js installed and set in *Path* environment variable (Version 23.9.0 was used with this project)
+* Appium installed using npm (`npm install -g appium`) (Version 2.16.2 was used with this project)
 * Android SDK installed. ANDROID_HOME and ANDROID_SDK_ROOT set in environment variable
 * An IDE (Eclipse or IntelliJ IDEA)
 * Java 17 installed and JAVA_HOME set in environment variable
@@ -68,31 +68,31 @@ The tests are containerized using \*Docker\* in GitHub Actions to ensure a consi
 
 ### Steps to download the project in IDE:
 1. Open command prompt and go to the path where the project is to be downloaded
-2. Run \`git clone <url>\`. Get the URL from the project path
+2. Run `git clone <url>`. Get the URL from the project path
 3. Open IDE and go to File > Open and choose the git cloned project.
 
 ### Steps to run the tests locally using Maven:
-1. Copy \`.env.template\` file from root directory and copy it to bash_profile or zshrc file and update the values. These are env variables required to run the tests.
-2. Run the command \`mvn clean test\` in the root directory of the project to run the tests.
+1. Copy `.env.template` file from root directory and copy it to bash_profile or zshrc file and update the values. These are env variables required to run the tests.
+2. Run the command `mvn clean test` in the root directory of the project to run the tests.
 3. The test results are displayed in the console and the custom test reports are generated in the root directory with name \`report.html\`.
 
 ## How to run tests using CI/CD
 * The project is integrated with **Github Actions** for CI/CD.
-* The workflow file is present in the \`.github/workflows\` directory and is named \`e2eTests.yml\`.
-* The workflow file is configured to run the tests on every push and pull request to the \`master\` branch.
-* The workflow file is configured to generate the custom test reports and \**upload them as artifacts\**.
+* The workflow file is present in the `.github/workflows` directory and is named `e2eTests.yml`.
+* The workflow file is configured to run the tests on every push and pull request to the `master` branch.
+* The workflow file is configured to generate the custom test reports and **upload them as artifacts**.
 
 ### Steps in the workflow
 1. **name**: The name of the workflow.
-2. **on**: Specifies the events that trigger the workflow. In this case, it is triggered on push and pull request events to the \`master\` branch.
+2. **on**: Specifies the events that trigger the workflow. In this case, it is triggered on push and pull request events to the `master` branch.
 3. **jobs**: Defines the jobs that will run as part of the workflow.
 4. **build**: The name of the job.
-5. **runs-on**: Specifies the type of runner to use. In this case, it uses \`ubuntu-latest\`.
+5. **runs-on**: Specifies the type of runner to use. In this case, it uses `ubuntu-latest`.
 6. **steps**: The steps to be executed in the job.
-    - **Checkout repository**: Uses the \`actions/checkout@v3\` action to check out the repository code.
+    - **Checkout repository**: Uses the `actions/checkout@v3` action to check out the repository code.
     - **Start Android 11 Emulator in Docker**: Runs a Docker container with an Android 11 emulator.
     - **Verify Emulator is Fully Booted**: Checks if the emulator is fully booted.
-    - **Check Emulator Status**: Verifies that the emulator is running using \`adb devices\`.
+    - **Check Emulator Status**: Verifies that the emulator is running using `adb devices`.
     - **Get Emulator Device ID**: Retrieves the device ID of the emulator.
     - **Create Dockerfile for Appium Image with Reporter Plugin**: Creates a Dockerfile for a custom Appium image with the reporter plugin.
     - **Build Custom Appium Docker Image**: Builds the custom Appium Docker image.
