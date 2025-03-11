@@ -65,7 +65,7 @@ The project is created using Appium with Java and TestNG frameworks. The project
 3. Open IDE and go to File > Open and choose the git cloned project.
 
 ### Steps to run the tests locally using Maven:
-1. Make a copy of `.env.template` file and rename it to `.env` in the root directory of the project. Fill in the actual values for the environment variables.
+1. Make a copy of `.env.template` file and copy them 
 2. Run the command `mvn clean test` in the root directory of the project to run the tests.
 3. The test results are displayed in the console and the custom test reports are generated in the root directory with name `report.html`.
 

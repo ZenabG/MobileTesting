@@ -46,7 +46,7 @@ public class AppiumSetUp {
     protected static String startLocalAppiumServer() {
         // Start Appium server locally
         AppiumServiceBuilder builder = new AppiumServiceBuilder();
-        builder.withIPAddress("127.0.0.1").usingAnyFreePort().withAppiumJS(new File(System.getenv().get("APPIUM_JS_PATH"))).usingDriverExecutable(new File(System.getenv().get("NODE_JS_EXE_PATH"))).withArgument(BASEPATH, "/wd/hub").withArgument(GeneralServerFlag.SESSION_OVERRIDE).withArgument(GeneralServerFlag.LOG_LEVEL, "debug").withArgument(() -> "--use-plugins", "appium-reporter-plugin").withArgument(() -> "--log-level", "false").withLogFile(new File(System.getProperty("user.dir") + "/Appium_Server_Logs/appium_server_logs"));
+        builder.withIPAddress("127.0.0.1").usingAnyFreePort().withAppiumJS(new File(System.getenv().get("APPIUM_JS_PATH"))).usingDriverExecutable(new File(System.getenv().get("NODE_JS_EXE_PATH"))).withArgument(BASEPATH, "/wd/hub").withArgument(GeneralServerFlag.SESSION_OVERRIDE).withArgument(GeneralServerFlag.LOG_LEVEL, "debug").withArgument(() -> "--use-plugins", "appium-reporter-plugin").withLogFile(new File(System.getProperty("user.dir") + "/Appium_Server_Logs/appium_server_logs"));
 
         service = AppiumDriverLocalService.buildService(builder);
         service.start();
