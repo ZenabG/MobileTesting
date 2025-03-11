@@ -23,7 +23,6 @@ public class AppiumSetUp {
 	protected static WebDriverWait wait;
 	private static AppiumDriverLocalService service;
 	private static final Logger log = LoggerFactory.getLogger(AppiumSetUp.class);
-	private static final Dotenv dotenv = Dotenv.load();
 
 	public static String startAppium() {
 		String ciEnv = System.getenv().get("CI");
