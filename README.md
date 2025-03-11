@@ -71,10 +71,7 @@ The project is created using Appium with Java and TestNG frameworks. The project
 3. The test results are displayed in the console and the custom test reports are generated in the root directory with name `report.html`.
 
 ## How to run tests using CI/CD
-Download and install Jenkins war file from https://www.jenkins.io/
-Open command prompt and go to the path where Jenkins is installed on the device
-Run the command java -jar jenkins.war. This starts Jenkins server locally on the machine.
-Go to browser and open localhost:8080. This will open the Jenkins start page where it will ask for admin password.
-In Windows open C:/Users/<username>/.jenkins/secret. Paste the key from this file to admin password tab. Click next.
-On next page, set a new user for Jenkins or just continue as admin.
-Jenkins is started. Create a new Maven job to run the project from GitHub and check the build for results. (Added screenshots of the successful build to the folder Jenkins reports under the git master branch)
+* The project is integrated with Github Actions for CI/CD.
+* The workflow file is present in the `.github/workflows` directory.
+* The workflow file is configured to run the tests on every push and pull request to the `master` branch.
+* The workflow file is configured to run the tests on an Android emulator 

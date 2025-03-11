@@ -7,6 +7,7 @@ import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
+import io.github.cdimascio.dotenv.Dotenv;
 import static io.appium.java_client.service.local.flags.GeneralServerFlag.BASEPATH;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
@@ -22,6 +23,7 @@ public class AppiumSetUp {
 	protected static WebDriverWait wait;
 	private static AppiumDriverLocalService service;
 	private static final Logger log = LoggerFactory.getLogger(AppiumSetUp.class);
+	private static final Dotenv dotenv = Dotenv.load();
 
 	public static String startAppium() {
 		String ciEnv = dotenv.get("CI");
@@ -72,11 +74,11 @@ public class AppiumSetUp {
 	private static UiAutomator2Options setAppiumCapabiliies() {
 		UiAutomator2Options options = new UiAutomator2Options();
 		// Set Appium desired capabilities
-		options.setCapability(MobileCapabilityType.PLATFORM_NAME, System.getenv().get("PLATFORM_NAME"));
-		options.setCapability(MobileCapabilityType.PLATFORM_VERSION, System.getenv().get("PLATFORM_VERSION"));
-		options.setCapability(MobileCapabilityType.DEVICE_NAME, System.getenv().get("DEVICE_NAME"));
-		options.setCapability(MobileCapabilityType.UDID, System.getenv().get("UDID"));
-		options.setCapability("app", System.getenv().get("APP_PATH"));
+		options.setCapability(MobileCapabilityType.PLATFORM_NAME, dotenv.get("PLATFORM_NAME"));
+		options.setCapability(MobileCapabilityType.PLATFORM_VERSION, dotenv.get("PLATFORM_VERSION"));
+		options.setCapability(MobileCapabilityType.DEVICE_NAME, dotenv.get("DEVICE_NAME"));
+		options.setCapability(MobileCapabilityType.UDID, dotenv.get("UDID"));
+		options.setCapability("app", dotenv.get("APP_PATH"));
 		options.setCapability("appPackage", AppiumConstants.MONEFY_APP_PACKAGE);
 		options.setCapability("appActivity", AppiumConstants.MONEFY_APP_ACTIVITY);
 		options.setCapability("noReset", "false");
