@@ -74,17 +74,21 @@ public class TestTransaction extends AppiumSetUp {
     @AfterMethod
     public void createTestReport(ITestResult result) throws IOException {
         if (driver != null) {
-            String status = result.isSuccess() ? "PASS" : "FAIL";
-            String errorMessage = result.getThrowable() != null ? result.getThrowable().toString() : "UnknownError";
-            reporterPluginSetUp.setTestInfo(appiumURL, driver.getSessionId().toString(), result.getMethod().getMethodName(), status, errorMessage);
+            if (System.getenv().get("CI").equalsIgnoreCase("true")) {
+                String status = result.isSuccess() ? "PASS" : "FAIL";
+                String errorMessage = result.getThrowable() != null ? result.getThrowable().toString() : "UnknownError";
+                reporterPluginSetUp.setTestInfo(appiumURL, driver.getSessionId().toString(), result.getMethod().getMethodName(), status, errorMessage);
+            }
             driver.quit();
         }
     }
 
     @AfterSuite
     public void tearDown() throws IOException {
-        String report = reporterPluginSetUp.getReport(appiumURL);
-        reporterPluginSetUp.createReportFile(report, "report");
+        if (System.getenv().get("CI").equalsIgnoreCase("true")) {
+            String report = reporterPluginSetUp.getReport(appiumURL);
+            reporterPluginSetUp.createReportFile(report, "report");
+        }
         killAppiumServer();
     }
 

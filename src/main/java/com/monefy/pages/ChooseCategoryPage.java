@@ -19,13 +19,13 @@ public class ChooseCategoryPage {
 
 
     // expense categories
-    @FindBy(xpath = "//android.widget.TextView[@resource-id='com.monefy.app.lite:id/gridViewCategories' and @text='Bills']")
+    @FindBy(xpath = "//android.widget.GridView[@resource-id=\"com.monefy.app.lite:id/gridViewCategories\"]/android.widget.FrameLayout[1]/android.widget.LinearLayout\n")
     private WebElement billsCategory;
 
-    @FindBy(xpath = "//android.widget.TextView[@resource-id='com.monefy.app.lite:id/gridViewCategories' and @text='Cars']")
+    @FindBy(xpath = "//android.widget.GridView[@resource-id=\"com.monefy.app.lite:id/gridViewCategories\"]/android.widget.FrameLayout[2]/android.widget.LinearLayout\n")
     private WebElement carsCategory;
 
-    @FindBy(xpath = "//android.widget.TextView[@resource-id='com.monefy.app.lite:id/gridViewCategories' and @text='Clothes']")
+    @FindBy(xpath = "//android.widget.GridView[@resource-id=\"com.monefy.app.lite:id/gridViewCategories\"]/android.widget.FrameLayout[3]/android.widget.LinearLayout\n")
     private WebElement clothesCategory;
 
     public ChooseCategoryPage(WebDriver driver) {
