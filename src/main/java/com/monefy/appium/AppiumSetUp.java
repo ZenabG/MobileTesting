@@ -8,6 +8,7 @@ import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import static io.appium.java_client.service.local.flags.GeneralServerFlag.BASEPATH;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.File;
@@ -16,7 +17,8 @@ import java.net.URL;
 import java.time.Duration;
 
 public class AppiumSetUp {
-	protected WebDriverWait wait;
+	protected static WebDriverWait wait;
+	private static AppiumDriverLocalService service;
 	private static final Logger log = LoggerFactory.getLogger(AppiumSetUp.class);
 
 	public static String startAppium() {
@@ -42,9 +44,9 @@ public class AppiumSetUp {
 	protected static String startLocalAppiumServer() {
 		// Start Appium server locally
 		AppiumServiceBuilder builder = new AppiumServiceBuilder();
-		builder.withIPAddress("127.0.0.1").usingAnyFreePort().withAppiumJS(new File(dotenv.get("APPIUM_JS_PATH"))).usingDriverExecutable(new File(dotenv.get("NODE_JS_EXE_PATH"))).withArgument(BASEPATH, "/wd/hub").withArgument(GeneralServerFlag.SESSION_OVERRIDE).withArgument(GeneralServerFlag.LOG_LEVEL, "debug").withArgument(() -> "--use-plugins", "appium-reporter-plugin").withLogFile(new File(System.getProperty("user.dir") + "/Appium_Server_Logs/appium_server_logs"));
+		builder.withIPAddress("127.0.0.1").usingAnyFreePort().withAppiumJS(new File(System.getenv().get("APPIUM_JS_PATH"))).usingDriverExecutable(new File(System.getenv().get("NODE_JS_EXE_PATH"))).withArgument(BASEPATH, "/wd/hub").withArgument(GeneralServerFlag.SESSION_OVERRIDE).withArgument(GeneralServerFlag.LOG_LEVEL, "debug").withArgument(() -> "--use-plugins", "appium-reporter-plugin").withLogFile(new File(System.getProperty("user.dir") + "/Appium_Server_Logs/appium_server_logs"));
 
-		AppiumDriverLocalService service = AppiumDriverLocalService.buildService(builder);
+		service = AppiumDriverLocalService.buildService(builder);
 		service.start();
 
 		log.info("Appium server running: " + service.isRunning());

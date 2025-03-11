@@ -29,9 +29,8 @@ public class HomePage {
     @FindBy(xpath = " //android.widget.TextView[@resource-id='com.monefy.app.lite:id/income_amount_text']")
     private WebElement homeDisplayWheelIncomeIcon;
 
-    public HomePage(WebDriver driver, WebDriverWait wait, Logger log) {
+    public HomePage(WebDriver driver, WebDriverWait wait) {
         this.wait = wait;
-        this.log = log;
         PageFactory.initElements(driver, this);
     }
 
