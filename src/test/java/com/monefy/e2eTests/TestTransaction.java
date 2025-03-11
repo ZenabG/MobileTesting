@@ -72,8 +72,6 @@ public class TestTransaction extends AppiumSetUp {
      */
     @Test
     public void testUpdateBalanceByAddingExpense() throws InterruptedException {
-        System.out.println();
-        System.out.println();
         System.out.println("[Test 2] - Starting test to update balance by adding expense");
         String salary = "2500";
         String carExpense = "500";
