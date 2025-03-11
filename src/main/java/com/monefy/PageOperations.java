@@ -4,6 +4,7 @@ import com.monefy.pages.ChooseCategoryPage;
 import com.monefy.pages.HomePage;
 import com.monefy.pages.OffersPage;
 import com.monefy.pages.EnterAmountPage;
+import com.monefy.pages.GetStartedPage;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -14,6 +15,7 @@ public class PageOperations {
     private HomePage homePage;
     private EnterAmountPage enterAmountPage;
     private ChooseCategoryPage chooseCategoryPage;
+    private GetStartedPage getStartedPage;
 
     public PageOperations(AndroidDriver driver, WebDriverWait wait) {
         this.driver = driver;
@@ -21,6 +23,7 @@ public class PageOperations {
         this.homePage = new HomePage(this.driver, wait);
         this.enterAmountPage = new EnterAmountPage(this.driver);
         this.chooseCategoryPage = new ChooseCategoryPage(this.driver);
+        this.getStartedPage = new GetStartedPage(this.driver, wait);
     }
 
     public void skipOffers() throws InterruptedException {
@@ -32,8 +35,8 @@ public class PageOperations {
     public void getStartedWidget() throws InterruptedException {
         System.out.println("Navigating 'Get Started' widget ...");
         for (int i = 0; i < 4; i++) {
-            System.out.println("Clicking page: " + (i + 1));
-            homePage.clickGetStartedButton();
+            getStartedPage.clickGetStartedButton();
+            System.out.println("Clicked page: " + (i + 1));
         }
     }
 

@@ -11,9 +11,6 @@ public class HomePage {
 
     private final WebDriverWait wait;
 
-    @FindBy(id = "com.monefy.app.lite:id/buttonContinue")
-    private WebElement getStartedButton;
-
     @FindBy(id = "com.monefy.app.lite:id/income_button_title")
     private WebElement homeIncomeButton;
 
@@ -29,17 +26,6 @@ public class HomePage {
     public HomePage(WebDriver driver, WebDriverWait wait) {
         this.wait = wait;
         PageFactory.initElements(driver, this);
-    }
-
-    public void clickGetStartedButton() {
-        try {
-            WebElement button = this.wait.until(ExpectedConditions.visibilityOf(getStartedButton));
-            if (button != null) {
-                button.click();
-            }
-        } catch (RuntimeException e) {
-            System.out.println("Get Started widget not found");
-        }
     }
 
     public void clickIncomeButton() {
