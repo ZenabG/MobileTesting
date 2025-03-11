@@ -35,14 +35,10 @@ public class TestTransaction extends AppiumSetUp {
         pageOperations = new PageOperations(driver, wait);
     }
 
-    @BeforeMethod
-    public void initialise() throws InterruptedException {
-        pageOperations.skipOffers();
-    }
-
     @Test
     public void testAddIncome() throws InterruptedException {
         System.out.println("Adding income...");
+        pageOperations.skipOffers();
         pageOperations.addSalaryIncome("2500");
 //        Thread.sleep(4000);
         String actualIncomeBalance = pageOperations.getBalanceText();
@@ -56,6 +52,7 @@ public class TestTransaction extends AppiumSetUp {
     @Test
     public void testUpdateBalanceByAddingExpense() throws MalformedURLException, InterruptedException {
         System.out.println("Adding expense...");
+        pageOperations.skipOffers();
         pageOperations.addCarMortgageExpense("500");
 //        Thread.sleep(4000);
         String actualIncomeBalance = pageOperations.getBalanceText();
