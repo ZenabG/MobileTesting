@@ -7,17 +7,13 @@ import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
-import io.github.cdimascio.dotenv.Dotenv;
-
 import static io.appium.java_client.service.local.flags.GeneralServerFlag.BASEPATH;
-
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
@@ -29,7 +25,7 @@ public class AppiumSetUp {
     private static AppiumDriverLocalService service;
     private static final Logger log = LoggerFactory.getLogger(AppiumSetUp.class);
 
-    public static String startAppium() {
+    public static String startAppium() throws FileNotFoundException {
         String ciEnv = System.getenv().get("CI");
 
         if (ciEnv.equalsIgnoreCase("true")) {
