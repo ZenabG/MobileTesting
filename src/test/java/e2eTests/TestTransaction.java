@@ -77,7 +77,7 @@ public class TestTransaction extends AppiumSetUp {
             for (ITestResult result : context.getFailedTests().getAllResults()) {
                 System.out.println("Failed Test: " + result.getMethod().getMethodName() +
                         " - Exception: " + result.getThrowable());
-                reporterPluginSetUp.setTestInfo(getAppiumServerUrl(), driver.getSessionId().toString(), result.getMethod().getMethodName(), "FAIL", result.getThrowable().getMessage());
+                reporterPluginSetUp.setTestInfo(getAppiumServerUrl(), driver.getSessionId().toString(), result.getMethod().getMethodName(), "FAIL", result.getThrowable());
             }
             for (ITestResult result : context.getSkippedTests().getAllResults()) {
                 reporterPluginSetUp.setTestInfo(getAppiumServerUrl(), driver.getSessionId().toString(), result.getMethod().getMethodName(), "SKIP", null);
