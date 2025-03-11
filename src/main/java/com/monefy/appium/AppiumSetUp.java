@@ -25,7 +25,7 @@ public class AppiumSetUp {
     private static AppiumDriverLocalService service;
     private static final Logger log = LoggerFactory.getLogger(AppiumSetUp.class);
 
-    public static String startAppium() throws FileNotFoundException {
+    public static String startAppium() {
         String ciEnv = System.getenv().get("CI");
 
         if (ciEnv.equalsIgnoreCase("true")) {
