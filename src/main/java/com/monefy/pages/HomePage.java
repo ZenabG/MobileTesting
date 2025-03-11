@@ -1,19 +1,16 @@
 package com.monefy.pages;
 
-import com.monefy.PageOperations;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class HomePage {
 
     private final WebDriverWait wait;
-    private static final Logger log = LoggerFactory.getLogger(HomePage.class);
+
     @FindBy(id = "com.monefy.app.lite:id/buttonContinue")
     private WebElement getStartedButton;
 
@@ -41,7 +38,7 @@ public class HomePage {
                 button.click();
             }
         } catch (RuntimeException e) {
-            this.log.info("Get Started widget not found");
+            System.out.println("Get Started widget not found");
         }
     }
 

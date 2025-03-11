@@ -5,13 +5,21 @@ import com.monefy.PageOperations;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+/**
+ * ReporterPluginSetUp class is responsible for setting test information and generating test reports.
+ */
 public class ReporterPluginSetUp {
 
-    private static final Logger log = LoggerFactory.getLogger(ReporterPluginSetUp.class);
-
+    /**
+     * Sets the test information by sending a POST request to the Appium server.
+     *
+     * @param appiumUrl the URL of the Appium server
+     * @param sessionId the session ID of the test
+     * @param testName the name of the test
+     * @param testStatus the status of the test (PASS/FAIL)
+     * @param error the error message if the test failed
+     */
     public void setTestInfo(String appiumUrl, String sessionId, String testName, String testStatus, String error) {
         try {
             String url = appiumUrl + "setTestInfo";
@@ -30,12 +38,19 @@ public class ReporterPluginSetUp {
                 os.write(input, 0, input.length);
             }
             int responseCode = connection.getResponseCode();
-            log.info("Set Info Response Code: " + responseCode);
+            System.out.println("Set Info Response Code: " + responseCode);
         } catch (Exception e) {
-            log.info("Failed to set Test info");
+            System.out.println("Failed to set Test info");
         }
     }
 
+    /**
+     * Retrieves the test report by sending a GET request to the Appium server.
+     *
+     * @param appiumUrl the URL of the Appium server
+     * @return the test report as a string
+     * @throws IOException if an I/O error occurs
+     */
     public String getReport(String appiumUrl) throws IOException {
         String url = appiumUrl + "getReport";
 
@@ -43,7 +58,7 @@ public class ReporterPluginSetUp {
         connection.setRequestMethod("GET");
 
         int responseCode = connection.getResponseCode();
-        log.info("Response Code: " + responseCode);
+        System.out.println("Response Code: " + responseCode);
 
         if (responseCode == HttpURLConnection.HTTP_OK) {
             try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
@@ -59,12 +74,26 @@ public class ReporterPluginSetUp {
         }
     }
 
+    /**
+     * Creates a report file with the given data.
+     *
+     * @param data the data to be written to the file
+     * @param fileName the name of the file
+     * @throws IOException if an I/O error occurs
+     */
     public void createReportFile(String data, String fileName) throws IOException {
-        FileWriter fileWriter = new FileWriter( fileName + ".html");
+        FileWriter fileWriter = new FileWriter(fileName + ".html");
         fileWriter.write(data);
         fileWriter.close();
     }
 
+    /**
+     * Creates an HTTP connection to the given URL.
+     *
+     * @param url the URL to connect to
+     * @return the HTTP connection
+     * @throws IOException if an I/O error occurs
+     */
     private HttpURLConnection createHttpConnection(String url) throws IOException {
         URL appiumUrl = new URL(url);
         return (HttpURLConnection) appiumUrl.openConnection();

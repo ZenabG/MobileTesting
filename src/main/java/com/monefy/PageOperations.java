@@ -6,8 +6,6 @@ import com.monefy.pages.OffersPage;
 import com.monefy.pages.EnterAmountPage;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class PageOperations {
 
@@ -16,8 +14,6 @@ public class PageOperations {
     private HomePage homePage;
     private EnterAmountPage enterAmountPage;
     private ChooseCategoryPage chooseCategoryPage;
-
-    private static final Logger log = LoggerFactory.getLogger(PageOperations.class);
 
     public PageOperations(AndroidDriver driver, WebDriverWait wait) {
         this.driver = driver;
@@ -28,38 +24,60 @@ public class PageOperations {
     }
 
     public void skipOffers() throws InterruptedException {
+        System.out.println("Skipping offers...");
         offersPage.clickCloseButton();
+        System.out.println("Offers skipped.");
     }
 
     public void getStartedWidget() throws InterruptedException {
-        // Widget has to be clicked 4 times to get started
+        System.out.println("Clicking 'Get Started' widget 4 times...");
         for (int i = 0; i < 4; i++) {
+            System.out.println("Clicking 'Get Started' widget: " + (i + 1));
             homePage.clickGetStartedButton();
         }
+        System.out.println("'Get Started' widget clicked 4 times.");
     }
 
     public void addSalary(String amount) {
+        System.out.println("Adding salary: " + amount);
         homePage.clickIncomeButton();
+        System.out.println("Clicked income button.");
         enterAmountPage.addAmount(amount);
+        System.out.println("Entered amount: " + amount);
         enterAmountPage.clickChooseCategoryButton();
+        System.out.println("Clicked choose category button.");
         chooseCategoryPage.clickSalaryCategory();
+        System.out.println("Selected salary category.");
     }
 
     public void addSavings(String amount) {
+        System.out.println("Adding savings: " + amount);
         homePage.clickIncomeButton();
+        System.out.println("Clicked income button.");
         enterAmountPage.addAmount(amount);
+        System.out.println("Entered amount: " + amount);
         enterAmountPage.clickChooseCategoryButton();
+        System.out.println("Clicked choose category button.");
         chooseCategoryPage.clickSavingsCategory();
+        System.out.println("Selected savings category.");
     }
 
     public void addCarMortgageExpense(String amount) {
+        System.out.println("Adding car mortgage expense: " + amount);
         homePage.clickExpenseButton();
+        System.out.println("Clicked expense button.");
         enterAmountPage.addAmount(amount);
+        System.out.println("Entered amount: " + amount);
         enterAmountPage.clickChooseCategoryButton();
+        System.out.println("Clicked choose category button.");
         chooseCategoryPage.clickCarsCategory();
+        System.out.println("Selected cars category.");
     }
 
     public String getBalance() {
-        return homePage.getBalance();
+        System.out.println("Retrieving balance...");
+        String balance = homePage.getBalance();
+        System.out.println("Balance retrieved: " + balance);
+        return balance;
     }
 }

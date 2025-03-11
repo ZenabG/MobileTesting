@@ -6,6 +6,8 @@ This is a mobile automation project for the Monefy app. The Monefy app is a pers
 
 The project is created using Appium with Java and TestNG frameworks. The project is designed to test the functionality of the Monefy app on Android devices.
 
+The tests are containerized using *Docker* in GitHub Actions to ensure a consistent and isolated environment for test execution.
+
 ## Tools and technologies used
 
 * **Appium** : Open-source test automation tool for mobile applications
@@ -45,9 +47,13 @@ The project is created using Appium with Java and TestNG frameworks. The project
 
 * **Appium_server_logs :** This folder has the Appium server logs file generated after each local test run.
 
-## Test reports
-* Appium Reporter Plugin is used to generate custom test reports.
-  * The reports are generated at the root with name `report.html`.
+
+## Functional Tests
+* The functional tests for the Monefy app are located in the com.monefy.e2eTests package. These tests are designed to validate the core functionalities of the Monefy app, such as adding income and updating the balance by adding expenses.  
+    * Test Classes
+        * **TestTransaction:** This class contains the following test methods:  
+            * **testAddIncome:** Validates that the user can add income to the Monefy app and that the balance is updated correctly.
+            * **testUpdateBalanceByAddingExpense:** Validates that the user can add an expense to the Monefy app and that the balance is updated correctly.
 
 ## How to run tests locally
 ### Pre-requisite :
@@ -56,7 +62,7 @@ The project is created using Appium with Java and TestNG frameworks. The project
 * Android SDK installed. ANDROID_HOME and ANDROID_SDK_ROOT set in environment variable 
 * An IDE (Eclipse or IntelliJ IDEA)
 * Java 17 installed and JAVA_HOME set in environment variable
-* Maven 3.9.9 installed and MAVEN_HOME set in environment variable
+* Maven installed and MAVEN_HOME set in environment variable
 * Git installed
 
 ### Steps to download the project in IDE:
@@ -65,7 +71,7 @@ The project is created using Appium with Java and TestNG frameworks. The project
 3. Open IDE and go to File > Open and choose the git cloned project.
 
 ### Steps to run the tests locally using Maven:
-1. Make a copy of `.env.template` file and copy them to bash_profile or zshrc file and update the values.
+1. Copy `.env.template` file from root directory and copy it to bash_profile or zshrc file and update the values. These are env variables required to run the tests.
 2. Run the command `mvn clean test` in the root directory of the project to run the tests.
 3. The test results are displayed in the console and the custom test reports are generated in the root directory with name `report.html`.
 

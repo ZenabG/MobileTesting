@@ -9,8 +9,6 @@ import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import static io.appium.java_client.service.local.flags.GeneralServerFlag.BASEPATH;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -22,16 +20,15 @@ public class AppiumSetUp {
     protected static AndroidDriver driver;
     protected static WebDriverWait wait;
     private static AppiumDriverLocalService service;
-    private static final Logger log = LoggerFactory.getLogger(AppiumSetUp.class);
 
     public static String startAppium() {
         String ciEnv = System.getenv().get("CI");
 
         if (ciEnv.equalsIgnoreCase("true")) {
-            log.info("Using Appium server in Docker (CI/CD mode).");
+            System.out.println("Using Appium server in Docker (CI/CD mode).");
             return "http://127.0.0.1:4723/";
         } else {
-            log.info("Starting local Appium server...");
+            System.out.println("Starting local Appium server...");
             return startLocalAppiumServer();
         }
     }
@@ -50,8 +47,8 @@ public class AppiumSetUp {
         service = AppiumDriverLocalService.buildService(builder);
         service.start();
 
-        log.info("Appium server running: " + service.isRunning());
-        log.info("Appium URL: " + service.getUrl().toString());
+        System.out.println("Appium server running: " + service.isRunning());
+        System.out.println("Appium URL: " + service.getUrl().toString());
 
         return service.getUrl().toString();
 
@@ -61,9 +58,9 @@ public class AppiumSetUp {
         String ciEnv = System.getenv().get("CI");
 
         if (ciEnv.equalsIgnoreCase("true")) {
-            log.info("Appium server in Docker (CI/CD mode) will be stopped automatically.");
+            System.out.println("Appium server in Docker (CI/CD mode) will be stopped automatically.");
         } else {
-            log.info("Stopping local Appium server...");
+            System.out.println("Stopping local Appium server...");
             service.stop();
         }
     }

@@ -4,8 +4,6 @@ import com.monefy.appium.AppiumSetUp;
 import com.monefy.PageOperations;
 import com.monefy.testReport.ReporterPluginSetUp;
 import io.appium.java_client.android.AndroidDriver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeMethod;
@@ -19,17 +17,30 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.time.Duration;
 
+/**
+ * TestTransaction class contains end-to-end tests for the Monefy app.
+ * It validates core functionalities such as adding income and updating the balance by adding expenses.
+ */
 public class TestTransaction extends AppiumSetUp {
     private PageOperations pageOperations;
     private ReporterPluginSetUp reporterPluginSetUp;
     private static String appiumURL;
-    private static final Logger log = LoggerFactory.getLogger(TestTransaction.class);
 
+    /**
+     * Starts the Appium server before any tests are executed.
+     *
+     * @throws MalformedURLException if the URL is malformed
+     */
     @BeforeSuite
     public void startServer() throws MalformedURLException {
         appiumURL = startAppium();
     }
 
+    /**
+     * Initializes the Android driver and sets up the page operations before each test method.
+     *
+     * @throws MalformedURLException if the URL is malformed
+     */
     @BeforeMethod
     public void initialise() throws MalformedURLException {
         createAndroidDriver(appiumURL);
@@ -37,9 +48,14 @@ public class TestTransaction extends AppiumSetUp {
         pageOperations = new PageOperations(driver, wait);
     }
 
+    /**
+     * Validates that the user can add income to the Monefy app and that the balance is updated correctly.
+     *
+     * @throws InterruptedException if the thread is interrupted
+     */
     @Test
     public void testAddIncome() throws InterruptedException {
-        log.info("Starting test to add income");
+        System.out.println("Starting test to add income");
         String savings = "1000";
         pageOperations.getStartedWidget();
         pageOperations.skipOffers();
@@ -49,14 +65,18 @@ public class TestTransaction extends AppiumSetUp {
         assertEquals(savings, balance);
     }
 
+    /**
+     * Validates that the user can add an expense to the Monefy app and that the balance is updated correctly.
+     *
+     * @throws InterruptedException if the thread is interrupted
+     */
     @Test
     public void testUpdateBalanceByAddingExpense() throws InterruptedException {
-        log.info("Starting test to update balance by adding expense");
+        System.out.println("Starting test to update balance by adding expense");
         String salary = "2500";
         String carExpense = "500";
 
         pageOperations.getStartedWidget();
-
         pageOperations.skipOffers();
         pageOperations.addSalary(salary);
 
@@ -70,7 +90,12 @@ public class TestTransaction extends AppiumSetUp {
         assertTrue(Integer.parseInt(updatedBalance) < Integer.parseInt(balance));
     }
 
-
+    /**
+     * Generates a test report after each test method execution.
+     *
+     * @param result the result of the test method
+     * @throws IOException if an I/O error occurs
+     */
     @AfterMethod
     public void createTestReport(ITestResult result) throws IOException {
         if (driver != null) {
@@ -83,6 +108,11 @@ public class TestTransaction extends AppiumSetUp {
         }
     }
 
+    /**
+     * Stops the Appium server and generates the final test report after all tests are executed.
+     *
+     * @throws IOException if an I/O error occurs
+     */
     @AfterSuite
     public void tearDown() throws IOException {
         if (System.getenv().get("CI").equalsIgnoreCase("true")) {
@@ -92,13 +122,15 @@ public class TestTransaction extends AppiumSetUp {
         killAppiumServer();
     }
 
+    /**
+     * Removes currency symbol, commas, and decimal point from the amount and converts it to an integer.
+     *
+     * @param amount the amount to be trimmed
+     * @return the trimmed amount as a string
+     */
     private String getTrimmedAmount(String amount) {
-        // Remove currency symbol, commas, and decimal point
         amount = amount.replaceAll("[^\\d]", "");
-
-        // Convert to integer and divide by 100 to remove trailing zeroes
         int balance = Integer.parseInt(amount) / 100;
-
         return String.valueOf(balance);
     }
 }
