@@ -76,7 +76,7 @@ public class AppiumSetUp {
         options.setCapability(MobileCapabilityType.PLATFORM_VERSION, System.getenv().get("PLATFORM_VERSION"));
         options.setCapability(MobileCapabilityType.DEVICE_NAME, System.getenv().get("DEVICE_NAME"));
         options.setCapability(MobileCapabilityType.UDID, System.getenv().get("UDID"));
-        options.setCapability("app", System.getenv().get("APP_PATH"));
+        options.setCapability("app", AppiumConstants.MONEFY_APP_NAME);
         options.setCapability("appPackage", AppiumConstants.MONEFY_APP_PACKAGE);
         options.setCapability("appActivity", AppiumConstants.MONEFY_APP_ACTIVITY);
         options.setCapability("noReset", "false");
