@@ -52,8 +52,7 @@ The project is created using Appium with Java and TestNG frameworks. The project
 ## How to run tests locally
 ### Pre-requisite :
 * Node.js installed and set in *Path* environment variable (Version 23.9.0 was used with this project)
-* Appium installed using npm (`npm install -g appium`) (Version 1.22.1 was used with this project)
-* Appium Reporter Plugin installed using `appium plugin install --source=npm appium-reporter-plugin`
+* Appium installed using npm (`npm install -g appium`) (Version 2.16.2 was used with this project)
 * Android SDK installed. ANDROID_HOME and ANDROID_SDK_ROOT set in environment variable 
 * An IDE (Eclipse or IntelliJ IDEA)
 * Java 17 installed and JAVA_HOME set in environment variable
