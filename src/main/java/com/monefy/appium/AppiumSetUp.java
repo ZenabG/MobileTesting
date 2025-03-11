@@ -20,7 +20,7 @@ public class AppiumSetUp {
 	private static AppiumDriverLocalService service;
 	private static final Dotenv dotenv = Dotenv.load();
 
-	public static void createAndroidDriver() throws MalformedURLException {
+	public static void createAndroidDriver(String appiumUrl) throws MalformedURLException {
 		UiAutomator2Options options = new UiAutomator2Options();
 		// Set Appium desired capabilities
 		options.setCapability(MobileCapabilityType.PLATFORM_NAME, System.getenv().get("PLATFORM_NAME"));
@@ -32,12 +32,11 @@ public class AppiumSetUp {
 		options.setCapability("appActivity", AppiumConstants.APP_ACTIVITY);
 		options.setCapability("noReset", "false");
 		options.setCapability("appium:uiautomator2ServerInstallTimeout", 30000);
-		String appiumUrl = getAppiumServerUrl();
 		driver = new AndroidDriver(new URL(appiumUrl), options);
 		setupDriverTimeouts();
 	}
 
-	public static String getAppiumServerUrl() {
+	public static String startAppiumServer() {
 		String ciEnv = System.getenv().get("CI");
 		// Check if CI is set to true
 		if ("true".equalsIgnoreCase(ciEnv)) {

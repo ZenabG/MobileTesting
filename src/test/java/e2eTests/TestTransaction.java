@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.time.Duration;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.testng.annotations.*;
 import com.monefy.appium.AppiumSetUp;
@@ -26,16 +24,19 @@ public class TestTransaction extends AppiumSetUp {
 
     private ReporterPluginSetUp reporterPluginSetUp;
 
+    private static String appiumURL;
+
     @BeforeSuite
-    public void startAppiumServer() throws MalformedURLException {
-        createAndroidDriver();
+    public void startServer() throws MalformedURLException {
+        appiumURL = startAppiumServer();
         log = Logger.getLogger("global");
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        reporterPluginSetUp = new ReporterPluginSetUp();
     }
 
     @BeforeMethod
-    public void initialise() throws InterruptedException {
+    public void initialise() throws MalformedURLException {
+        createAndroidDriver(appiumURL);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        reporterPluginSetUp = new ReporterPluginSetUp();
         pageOperations = new PageOperations(driver, wait);
     }
 
@@ -44,10 +45,7 @@ public class TestTransaction extends AppiumSetUp {
         System.out.println("Adding income...");
         pageOperations.skipOffers();
         pageOperations.addSalaryIncome("2500");
-//        Thread.sleep(4000);
         String actualIncomeBalance = pageOperations.getBalanceText();
-//        System.out.println("Actual Income Balance: " + actualIncomeBalance);
-
         actualIncomeBalance = getTrimmedAmount(actualIncomeBalance);
 
         assertEquals("25000", actualIncomeBalance);
@@ -58,33 +56,26 @@ public class TestTransaction extends AppiumSetUp {
         System.out.println("Adding expense...");
         pageOperations.skipOffers();
         pageOperations.addCarMortgageExpense("500");
-//        Thread.sleep(4000);
         String actualIncomeBalance = pageOperations.getBalanceText();
-//        System.out.println("Actual Income Balance: " + actualIncomeBalance);
-
         actualIncomeBalance = getTrimmedAmount(actualIncomeBalance);
 
         assertEquals("2000", actualIncomeBalance);
     }
 
 
-    @AfterSuite
-    public void stopAppiumServer(ITestContext context) throws IOException {
+    @AfterMethod
+    public void setTestReport(ITestResult result) throws IOException {
         if (driver != null) {
-            for (ITestResult result : context.getPassedTests().getAllResults()) {
-                reporterPluginSetUp.setTestInfo(getAppiumServerUrl(), driver.getSessionId().toString(), result.getMethod().getMethodName(), "PASS", null);
-            }
-            for (ITestResult result : context.getFailedTests().getAllResults()) {
-                System.out.println("Failed Test: " + result.getMethod().getMethodName() +
-                        " - Exception: " + result.getThrowable());
-                reporterPluginSetUp.setTestInfo(getAppiumServerUrl(), driver.getSessionId().toString(), result.getMethod().getMethodName(), "FAIL", result.getThrowable().toString());
-            }
-            for (ITestResult result : context.getSkippedTests().getAllResults()) {
-                reporterPluginSetUp.setTestInfo(getAppiumServerUrl(), driver.getSessionId().toString(), result.getMethod().getMethodName(), "SKIP", null);
-            }
+            String status = result.isSuccess() ? "PASS" : "FAIL";
+            String errorMessage = result.getThrowable() != null ? result.getThrowable().toString() : "UnknownError";
+            reporterPluginSetUp.setTestInfo(appiumURL, driver.getSessionId().toString(), result.getMethod().getMethodName(), status, errorMessage);
             driver.quit();
         }
-        String report = reporterPluginSetUp.getReport(getAppiumServerUrl());
+    }
+
+    @AfterSuite
+    public void tearDown() throws IOException {
+        String report = reporterPluginSetUp.getReport(appiumURL);
         reporterPluginSetUp.createReportFile(report, "report");
         killAppiumServer();
     }
